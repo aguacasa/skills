@@ -5,6 +5,9 @@ merchant's approved claims. Do not apply supplement wording, an FDA disclaimer,
 or an adult-only age rule to unrelated stores. Verify current requirements with
 primary regulatory sources when drafting regulated copy or policies.
 
+Review [native features and connected services](native-features.md) before drafting
+privacy disclosures, enabling marketing, or recommending purchase options.
+
 ## All stores
 
 - Product descriptions, packaging details, specifications, country of manufacture,

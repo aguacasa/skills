@@ -123,7 +123,10 @@ can prepare an edit plan but cannot deliver a finished video.
 **Bring your product, brand direction, and Shopify store.**
 
 Guides store discovery, a brand system, theme work, product pages, visual checks,
-and a reviewed launch. Motion and 3D are optional. The bundled implementation is
+and a reviewed launch. Onboarding covers suppliers, connected services, tracking,
+privacy choices, and optional bundles or subscriptions, with Shopify-first
+recommendations. Product data and label artwork use explicit fields rather than
+supplier-specific description layouts or fixed photo crops. Motion and 3D are optional. The bundled implementation is
 an anonymized supplement-store example for a Helio-based theme, not a complete
 universal theme. All example products, copy, and asset references need adaptation.
 

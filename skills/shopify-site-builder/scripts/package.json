@@ -3,8 +3,14 @@
   "private": true,
   "type": "module",
   "description": "Helper scripts for the shopify-site-builder skill. Run `npm install` here once.",
+  "scripts": {
+    "test": "node --test test-product-data.mjs"
+  },
   "dependencies": {
     "puppeteer-core": "^24.0.0",
     "sharp": "^0.34.0"
+  },
+  "devDependencies": {
+    "liquidjs": "^10.30.0"
   }
 }

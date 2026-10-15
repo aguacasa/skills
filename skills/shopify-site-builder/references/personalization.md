@@ -18,9 +18,23 @@ When preferences have not been established, ask one short, grouped discovery
 message covering only the unanswered points below. Offer "use sensible defaults"
 as an easy option. Do not collect everything before doing any useful work.
 
-- What do you sell, who buys it, and which countries or regions will you serve?
+- What do you sell, who buys it, and which countries or regions will you serve? Who supplies, manufactures, stocks, or fulfills the products, and which source controls product facts, images, SKUs, and inventory?
 - What brand direction, existing theme, assets, and example stores should guide the design? Offer the restrained-product preset as an optional starting point.
-- What is the scope: planning, a preview theme, or an approved launch? Establish the target store, available access, project location, and any product-category restrictions.
+- What is the scope: planning, a preview theme, or an approved launch? Establish the target store, available access, project location, and any product-category restrictions. Ask which third-party apps, pixels, analytics/tag managers, email/SMS tools, reviews, fulfillment/returns services, consent tools, and other services are already used or planned.
+
+Then ask only the relevant follow-ups: Are bundles wanted (fixed packs or a
+customer-built selection)? Is recurring purchasing wanted? What marketing
+channels and consent choices should be supported? Compare current Shopify
+features and first-party apps using [native features and integrations](native-features.md).
+Do not make the user enumerate apps that an authorized read-only audit can list;
+confirm its findings and ask about services outside Shopify. "None" and "not yet
+decided" are valid answers, not permission to install or enable anything.
+
+Record a concise service inventory: purpose, provider, installation point, data
+shared, consent integration, operational owner, and keep/replace/undecided status.
+Use non-secret identifiers only. Match privacy and policy recommendations to
+actual services, not a standard list of vendors. Present a short recommended
+setup with reasons, eligibility/cost checks, and decisions needed before activation.
 
 If the user explicitly asks for a complete result immediately or skips discovery,
 proceed with stated defaults where possible. Ask for an essential missing input

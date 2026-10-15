@@ -3,8 +3,8 @@
   The product lineup as full-bleed colour panels: an intro panel, then one panel per product
   with its giant display word, floating tins, ingredients and one-tap add to cart. Pins and
   scrolls sideways on desktop; swipeable row on touch screens and with reduced motion.
-  Reads demo.color, demo.word, demo.tagline, demo.flavor, demo.ingredients and
-  demo.cutout_float product metafields.
+  Reads custom.color, custom.word, custom.tagline, custom.flavor, custom.ingredients and
+  custom.cutout_float product metafields.
   @example
   <!-- Anchor id is "lineup" -->
 {% endcomment %}
@@ -30,9 +30,9 @@
 
       {%- for product in rz_products limit: 12 -%}
         {%- liquid
-          assign rz_art = product.metafields.demo.cutout_float.value | default: product.featured_image
-          assign rz_flavor = product.metafields.demo.flavor.value
-          assign rz_ingredients = product.metafields.demo.ingredients.value
+          assign rz_art = product.metafields.custom.cutout_float.value | default: product.featured_image
+          assign rz_flavor = product.metafields.custom.flavor.value
+          assign rz_ingredients = product.metafields.custom.ingredients.value
         -%}
         <article
           class="rz-panel"
@@ -61,8 +61,8 @@
             <h3 class="rz-panel__title" id="RzPanel-{{ section.id }}-{{ forloop.index }}">
               <a href="{{ product.url }}">{{ product.title | remove: ' Strips' | escape }}</a>
             </h3>
-            {%- if product.metafields.demo.tagline != blank -%}
-              <p class="rz-panel__tagline">{{ product.metafields.demo.tagline.value | escape }}</p>
+            {%- if product.metafields.custom.tagline != blank -%}
+              <p class="rz-panel__tagline">{{ product.metafields.custom.tagline.value | escape }}</p>
             {%- endif -%}
             {%- if rz_ingredients != blank -%}
               <ul class="rz-chips" aria-label="Key ingredients">
@@ -86,7 +86,7 @@
           type="button"
           class="rz-lineup__dot"
           data-rz-dot
-          style="--rz-dot: {{ product.metafields.demo.color.value | default: '#CEFF65' }}"
+          style="--rz-dot: {{ product.metafields.custom.color.value | default: '#CEFF65' }}"
           aria-label="{{ product.title | escape }}"
         ></button>
       {%- endfor -%}

@@ -18,7 +18,12 @@ Read the contact sheets and check:
 - [ ] `page-check.mjs` reports no page errors (ignore Shopify's own 400/403s for shop.app and the account menu).
 - [ ] Hover, focus and disabled states are readable. Test by hovering in headless Chrome and reading computed styles.
 - [ ] Add-to-cart opens the theme's cart drawer.
-- [ ] `/products/<handle>.js` returns `"available": true`. If false, check the shipping profile includes the fulfillment location.
+- [ ] Expected variants are purchasable. If unavailable, check publication, inventory, locations, market, and delivery settings; do not infer one universal cause.
+- [ ] Unstructured descriptions, populated custom fields, and missing optional fields render correctly; no supplier HTML or fixed crop is required.
+- [ ] Only verified product badges appear, and label/details artwork comes from explicit approved fields.
+- [ ] Required cookie-consent and data-sharing choices work in the intended regions; marketing opt-in is separate. Pixels respect applicable consent/opt-out settings and do not fire duplicate events.
+- [ ] Policy links and connected-service disclosures match the actual store.
+- [ ] If selected: test bundle components, variants, stock, shipping, and fulfillment; test subscriptions, one-time alternatives, and customer cancellation. Verify the chosen bundle/subscription combination is supported.
 - [ ] Reduced motion: emulate it and confirm static fallbacks show.
 - [ ] Theme editor: sections load and unload cleanly (`shopify:section:load` / `unload`).
 

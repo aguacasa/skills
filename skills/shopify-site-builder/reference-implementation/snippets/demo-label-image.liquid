@@ -1,0 +1,12 @@
+{% doc %}
+  Outputs the prepared product label URL, or nothing when no label was supplied.
+  @param {product} product - Product to read
+  @param {number} [width] - Requested image width; defaults to 1024
+{% enddoc %}
+{%- liquid
+  assign rz_label_image = product.metafields.custom.label_image.value
+  assign rz_label_width = width | default: 1024
+  if rz_label_image != blank
+    echo rz_label_image | image_url: width: rz_label_width
+  endif
+-%}

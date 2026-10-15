@@ -15,7 +15,7 @@
   <div class="rz-day__stack">
     {%- for block in section.blocks -%}
       {%- assign rz_product = block.settings.product -%}
-      {%- assign rz_tin = rz_product.metafields.demo.cutout.value -%}
+      {%- assign rz_tin = rz_product.metafields.custom.cutout.value -%}
       <article
         class="rz-moment"
         data-rz-moment

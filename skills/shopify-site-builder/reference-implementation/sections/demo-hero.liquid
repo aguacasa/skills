@@ -5,7 +5,7 @@
   that product. Plays a wordmark intro once per visit. Falls back to product cutouts without
   WebGL or with reduced motion.
   @example
-  <!-- Homepage first section. Pick up to seven products; each needs demo.color and demo.cutout metafields. -->
+  <!-- Homepage first section. Pick up to seven products; each needs custom.color and custom.cutout metafields. -->
 {% endcomment %}
 {%- liquid
   assign rz_products = section.settings.products
@@ -29,7 +29,7 @@
     <div class="rz-hero__layer rz-hero__layer--back" data-rz-layer="back"></div>
     <div class="rz-hero__fallback">
       {%- for product in rz_products limit: 3 -%}
-        {%- assign rz_cutout = product.metafields.demo.cutout.value -%}
+        {%- assign rz_cutout = product.metafields.custom.cutout.value -%}
         {%- if rz_cutout -%}
           {{
             rz_cutout
@@ -66,17 +66,13 @@
 
   {% render 'demo-drip', color: section.settings.background %}
 
-  {%- comment -%}
-    Label textures are cropped from each product's featured image, a Supliful 2048px mockup
-    with the tin lid label at x 392–1656, y 512–1764.
-  {%- endcomment -%}
   <script type="application/json" data-rz-hero-data>
     {
       "products": [
         {%- for product in rz_products limit: 7 -%}
-          {%- capture rz_color -%}{{ product.metafields.demo.color.value | default: '#054FB8' }}{%- endcapture -%}
+          {%- capture rz_color -%}{{ product.metafields.custom.color.value | default: '#054FB8' }}{%- endcapture -%}
           {%- capture rz_label -%}
-            {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 768 }}&crop=region&crop_left=392&crop_top=512&crop_width=1264&crop_height=1252{%- endif -%}
+            {% render 'demo-label-image', product: product, width: 768 %}
           {%- endcapture -%}
           {
             "title": {{ product.title | json }},

@@ -27,7 +27,7 @@
   <ul class="rz-more__grid">
     {%- for rz_item in rz_products limit: 12 -%}
       {%- if product and rz_item.id == product.id -%}{%- continue -%}{%- endif -%}
-      {%- assign rz_tin = rz_item.metafields.demo.cutout.value | default: rz_item.featured_image -%}
+      {%- assign rz_tin = rz_item.metafields.custom.cutout.value | default: rz_item.featured_image -%}
       <li class="rz-card" style="{% render 'demo-vars', product: rz_item %}" data-rz-tilt="8" data-rz-reveal>
         <a class="rz-card__media" href="{{ rz_item.url }}" tabindex="-1" aria-hidden="true">
           {%- if rz_tin -%}
@@ -36,8 +36,8 @@
         </a>
         <div class="rz-card__body">
           <h3 class="rz-card__title"><a href="{{ rz_item.url }}">{{ rz_item.title | remove: ' Strips' | escape }}</a></h3>
-          {%- if rz_item.metafields.demo.tagline != blank -%}
-            <p class="rz-card__tagline">{{ rz_item.metafields.demo.tagline.value | escape }}</p>
+          {%- if rz_item.metafields.custom.tagline != blank -%}
+            <p class="rz-card__tagline">{{ rz_item.metafields.custom.tagline.value | escape }}</p>
           {%- endif -%}
           {% render 'demo-add-button', product: rz_item %}
         </div>

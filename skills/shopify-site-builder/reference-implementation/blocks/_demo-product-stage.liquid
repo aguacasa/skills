@@ -1,17 +1,16 @@
 {% doc %}
   Demo product media stage, used in place of the media gallery when the product section's
   "Demo 3D stage" setting is on. Shows the product's tin in 3D (drag to spin) with thumbnails that swap to the product photos. Without
-  WebGL, or with reduced motion, it shows the tin cutout from the demo.cutout metafield.
+  WebGL, or with reduced motion, it shows the tin cutout from the custom.cutout metafield.
 {% enddoc %}
 {%- liquid
   assign rz_product = closest.product
-  assign rz_cutout = rz_product.metafields.demo.cutout.value
+  assign rz_cutout = rz_product.metafields.custom.cutout.value | default: rz_product.featured_image
   assign rz_photo_count = 0
 -%}
-{%- capture rz_color -%}{{ rz_product.metafields.demo.color.value | default: '#054FB8' }}{%- endcapture -%}
+{%- capture rz_color -%}{{ rz_product.metafields.custom.color.value | default: '#054FB8' }}{%- endcapture -%}
 {%- capture rz_label -%}
-  {%- comment -%} Lid label cropped from the Supliful 2048px front mockup. {%- endcomment -%}
-  {%- if rz_product.featured_image -%}{{ rz_product.featured_image | image_url: width: 1024 }}&crop=region&crop_left=392&crop_top=512&crop_width=1264&crop_height=1252{%- endif -%}
+  {% render 'demo-label-image', product: rz_product, width: 1024 %}
 {%- endcapture -%}
 
 <div class="rz-stage" data-rz-stage {{ block.shopify_attributes }}>

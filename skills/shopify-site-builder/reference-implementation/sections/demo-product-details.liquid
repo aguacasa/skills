@@ -1,8 +1,8 @@
 {% comment %}
   Section contract.
-  "The fine print" accordion for a product. The first rows come from the Supliful
-  description (about, how to use, ingredients with the supplement facts panel, flavor and
-  size, warnings); "Question" blocks add FAQ rows after them. Ends with the FDA disclaimer.
+  Product-details accordion driven by merchant-reviewed custom metafields.
+  Category-specific rows appear only when populated. Question blocks add FAQ rows;
+  any disclaimer must be explicitly supplied and relevant to this store.
   @example
   <!-- On the product template it uses the page's product; add Question blocks for FAQs -->
 {% endcomment %}
@@ -16,15 +16,7 @@
 {%- capture rz_country -%}{% render 'demo-description', product: rz_product, part: 'country' %}{%- endcapture -%}
 {%- capture rz_warning -%}{% render 'demo-description', product: rz_product, part: 'warning' %}{%- endcapture -%}
 {%- capture rz_caution -%}{% render 'demo-description', product: rz_product, part: 'caution' %}{%- endcapture -%}
-{%- liquid
-  # The supplement facts panel is the wide image among the product photos.
-  assign rz_facts_image = nil
-  for media in rz_product.media
-    if media.media_type == 'image' and media.preview_image.aspect_ratio > 1.4
-      assign rz_facts_image = media.preview_image
-    endif
-  endfor
--%}
+{%- assign rz_facts_image = rz_product.metafields.custom.details_image.value -%}
 
 {%- capture rz_plus -%}
   <span class="rz-acc__icon" aria-hidden="true"></span>
@@ -72,14 +64,14 @@
       </details>
     {%- endif -%}
 
-    {%- if rz_flavor != blank or rz_amount != blank -%}
+    {%- if rz_flavor != blank or rz_amount != blank or rz_weight != blank or rz_country != blank -%}
       <details class="rz-acc">
         <summary><span>{{ section.settings.size_label | escape }}</span>{{ rz_plus }}</summary>
         <div class="rz-acc__content">
           <div class="rz-acc__inner">
             <dl class="rz-acc__facts-list">
               {%- if rz_flavor != blank -%}<div><dt>Flavor</dt><dd>{{ rz_flavor }}</dd></div>{%- endif -%}
-              {%- if rz_amount != blank -%}<div><dt>In the tin</dt><dd>{{ rz_amount }}</dd></div>{%- endif -%}
+              {%- if rz_amount != blank -%}<div><dt>Quantity</dt><dd>{{ rz_amount }}</dd></div>{%- endif -%}
               {%- if rz_weight != blank -%}<div><dt>Gross weight</dt><dd>{{ rz_weight }}</dd></div>{%- endif -%}
               {%- if rz_country != blank -%}<div><dt>Made in</dt><dd>{{ rz_country }}</dd></div>{%- endif -%}
             </dl>
@@ -287,7 +279,7 @@
       "type": "text",
       "id": "about_label",
       "label": "About row",
-      "default": "About this formula"
+      "default": "About this product"
     },
     {
       "type": "text",
@@ -299,19 +291,19 @@
       "type": "text",
       "id": "ingredients_label",
       "label": "Ingredients row",
-      "default": "Ingredients & supplement facts"
+      "default": "Materials or ingredients"
     },
     {
       "type": "text",
       "id": "facts_alt",
-      "label": "Supplement facts image alt text",
-      "default": "Supplement facts panel"
+      "label": "Product details image alt text",
+      "default": "Product details"
     },
     {
       "type": "text",
       "id": "size_label",
-      "label": "Flavor and size row",
-      "default": "Flavor & size"
+      "label": "Product specifications row",
+      "default": "Product specifications"
     },
     {
       "type": "text",
@@ -323,7 +315,7 @@
       "type": "textarea",
       "id": "disclaimer",
       "label": "Disclaimer",
-      "default": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+      "info": "Optional. Supply only reviewed wording relevant to this product and sales region."
     },
     {
       "type": "color",
@@ -347,13 +339,13 @@
           "type": "text",
           "id": "question",
           "label": "Question",
-          "default": "How long does one tin last?"
+          "default": "What should I know before ordering?"
         },
         {
           "type": "richtext",
           "id": "answer",
           "label": "Answer",
-          "default": "<p>A month. Each tin holds 30 strips and the routine is one strip a day.</p>"
+          "default": "<p>Add the reviewed answer for this product.</p>"
         }
       ]
     }

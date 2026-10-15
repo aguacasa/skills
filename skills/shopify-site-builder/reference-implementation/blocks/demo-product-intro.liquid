@@ -1,10 +1,10 @@
 {% doc %}
-  Product title, tagline (demo.tagline metafield) and a summary taken from the first
-  paragraph of the description. "Strips" in the title is set in italic.
+  Product title, tagline (custom.tagline metafield) and a summary taken from the first
+  merchant-reviewed custom.summary field. "Strips" in the title is set in italic.
 {% enddoc %}
 {%- liquid
   assign rz_product = closest.product
-  assign rz_tagline = rz_product.metafields.demo.tagline.value
+  assign rz_tagline = rz_product.metafields.custom.tagline.value
   assign rz_title = rz_product.title | escape
   if rz_title contains ' Strips'
     assign rz_title = rz_title | replace: ' Strips', ' <em>Strips</em>'
@@ -113,7 +113,7 @@
       "type": "checkbox",
       "id": "show_summary",
       "label": "Show summary",
-      "info": "The first paragraph of the product description.",
+      "info": "Optional summary from the custom.summary text metafield.",
       "default": true
     }
   ],

@@ -39,7 +39,7 @@
     <div class="rz-mood__results" aria-live="polite">
       {%- for block in section.blocks -%}
         {%- assign rz_product = block.settings.product -%}
-        {%- assign rz_tin = rz_product.metafields.demo.cutout.value | default: rz_product.featured_image -%}
+        {%- assign rz_tin = rz_product.metafields.custom.cutout.value | default: rz_product.featured_image -%}
         <div
           class="rz-mood__result"
           id="RzMoodResult-{{ section.id }}-{{ forloop.index }}"
@@ -60,10 +60,10 @@
             <h3 class="rz-mood__name" data-rz-result-text>
               <a href="{{ rz_product.url }}">{{ rz_product.title | escape }}</a>
             </h3>
-            {%- if rz_product.metafields.demo.tagline != blank -%}
-              <p class="rz-mood__tagline" data-rz-result-text>{{ rz_product.metafields.demo.tagline.value | escape }}</p>
+            {%- if rz_product.metafields.custom.tagline != blank -%}
+              <p class="rz-mood__tagline" data-rz-result-text>{{ rz_product.metafields.custom.tagline.value | escape }}</p>
             {%- endif -%}
-            {%- assign rz_ingredients = rz_product.metafields.demo.ingredients.value -%}
+            {%- assign rz_ingredients = rz_product.metafields.custom.ingredients.value -%}
             {%- if rz_ingredients != blank -%}
               <ul class="rz-chips" data-rz-result-text aria-label="Key ingredients">
                 {%- for ingredient in rz_ingredients -%}

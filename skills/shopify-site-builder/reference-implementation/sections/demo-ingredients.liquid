@@ -1,14 +1,14 @@
 {% comment %}
   Section contract.
-  Ingredient spotlight for a product: one tilting card per key ingredient (demo.ingredients
+  Ingredient spotlight for a product: one tilting card per key ingredient (custom.ingredients
   metafield, e.g. "L-Theanine 50mg" shows 50mg large over the name), plus the full
-  ingredients line parsed from the Supliful description.
+  merchant-reviewed ingredients field. This optional section is only for categories where ingredients apply.
   @example
   <!-- On the product template it uses the page's product; elsewhere pick one in settings -->
 {% endcomment %}
 {%- liquid
   assign rz_product = section.settings.product | default: product
-  assign rz_ingredients = rz_product.metafields.demo.ingredients.value
+  assign rz_ingredients = rz_product.metafields.custom.ingredients.value
 -%}
 {%- capture rz_full -%}{% render 'demo-description', product: rz_product, part: 'ingredients' %}{%- endcapture -%}
 

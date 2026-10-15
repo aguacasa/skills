@@ -1,12 +1,12 @@
 {% doc %}
-  Quick facts tiles (strips per tin, daily dose, no water, flavour from demo.flavor) and the
-  key ingredients from the demo.ingredients metafield as chips. The fact tiles are block
+  Quick facts tiles (strips per tin, daily dose, no water, flavour from custom.flavor) and the
+  key ingredients from the custom.ingredients metafield as chips. The fact tiles are block
   settings, so a template can override them (the bundle template shows tins and strips).
 {% enddoc %}
 {%- liquid
   assign rz_product = closest.product
-  assign rz_flavor = rz_product.metafields.demo.flavor.value
-  assign rz_ingredients = rz_product.metafields.demo.ingredients.value
+  assign rz_flavor = rz_product.metafields.custom.flavor.value
+  assign rz_ingredients = rz_product.metafields.custom.ingredients.value
 
   # One column per tile, so three tiles (a bundle has no single flavour) fill the row.
   assign rz_tile_count = 0

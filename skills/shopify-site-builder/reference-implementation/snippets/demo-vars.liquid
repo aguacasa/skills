@@ -4,13 +4,13 @@
   --rz-c (background), --rz-fg (body text), --rz-accent (display type, buttons),
   --rz-accent-fg (text on an accent fill), plus --rz-c-rgb and --rz-fg-rgb triplets.
 
-  @param {product} [product] - Product whose demo.color metafield is used
+  @param {product} [product] - Product whose custom.color metafield is used
   @param {string} [color] - Hex colour that overrides the product's colour
 
   @example
   <article style="{% render 'demo-vars', product: product %}">
 {%- enddoc -%}
-{%- capture rz_color -%}{{ color | default: product.metafields.demo.color.value | default: '#054FB8' }}{%- endcapture -%}
+{%- capture rz_color -%}{{ color | default: product.metafields.custom.color.value | default: '#054FB8' }}{%- endcapture -%}
 {%- liquid
   assign rz_brightness = rz_color | color_brightness
   if rz_brightness > 100

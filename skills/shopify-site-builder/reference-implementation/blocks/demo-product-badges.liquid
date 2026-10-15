@@ -1,17 +1,18 @@
 {% doc %}
-  Dietary badges (Gluten-free, Vegan friendly…) read from the badge images at the end of the
-  Supliful product description, shown as check chips.
+  Renders merchant-verified product badges from custom.badges, a list of plain text.
+  Missing data outputs no badges; images or description prose never imply certification.
 {% enddoc %}
-{%- capture rz_badges -%}{% render 'demo-description', product: closest.product, part: 'badges' %}{%- endcapture -%}
-{%- assign rz_badges = rz_badges | strip | split: '|' -%}
+{%- assign rz_badges = closest.product.metafields.custom.badges.value -%}
 
-{%- if rz_badges.size > 0 -%}
+{%- if rz_badges != blank -%}
   <ul class="rz-pdp-badges" aria-label="{{ block.settings.label | escape }}" {{ block.shopify_attributes }}>
     {%- for badge in rz_badges -%}
-      <li class="rz-pdp-badges__item">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.5l4.5 4.5L19.5 7" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        {{ badge | escape }}
-      </li>
+      {%- if badge != blank -%}
+        <li class="rz-pdp-badges__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.5l4.5 4.5L19.5 7" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {{ badge | escape }}
+        </li>
+      {%- endif -%}
     {%- endfor -%}
   </ul>
 {%- endif -%}
@@ -47,18 +48,18 @@
 
 {% schema %}
 {
-  "name": "Demo dietary badges",
+  "name": "Demo product badges",
   "settings": [
     {
       "type": "text",
       "id": "label",
       "label": "List label (screen readers)",
-      "default": "Dietary information"
+      "default": "Product attributes"
     }
   ],
   "presets": [
     {
-      "name": "Demo dietary badges"
+      "name": "Demo product badges"
     }
   ]
 }

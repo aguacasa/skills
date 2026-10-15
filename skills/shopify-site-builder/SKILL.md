@@ -12,7 +12,9 @@ editor keep working. Adapt the design to the merchant, product category, and the
 
 Read [personalization.md](references/personalization.md) on first use. Reuse an
 existing store profile or discover audience, products, regions, brand direction,
-theme, project location, and scope. Ask only for missing essentials. Offer the
+theme, project location, scope, suppliers, and connected services. Identify
+tracking pixels, analytics, marketing tools, consent controls, and any bundle or
+subscription goals without assuming they are wanted. Ask only for missing essentials. Offer the
 [restrained-product preset](references/restrained-product-preset.md) when useful;
 3D, animated heroes, and supplement copy are not universal requirements.
 Keep saved store preferences private and outside the installed skill.
@@ -25,21 +27,27 @@ Keep saved store preferences private and outside the installed skill.
    authenticated access for execution: a shell, Node, Shopify CLI, and Chrome or
    Chromium for bundled QA. Apple Vision cutouts require macOS; use an available
    alternative elsewhere. Read [the workflow](references/workflow.md).
-3. Pull the selected theme into the agreed project without deleting local files.
+3. Review [native features and integrations](references/native-features.md). Recommend
+   relevant Shopify privacy/opt-in tools, policy tools, Bundles, and Subscriptions
+   first; explain prerequisites and compatibility before activation.
+4. Pull the selected theme into the agreed project without deleting local files.
    Work on a preview/development theme. The owner completes interactive sign-in.
-4. Build a brand system, inspect real product data, and implement the agreed pages
+5. Build a brand system, map approved supplier/catalog data using
+   [the supplier-neutral contract](references/product-data.md), and implement the agreed pages
    with screenshots after meaningful changes. See [design-system.md](references/design-system.md),
    [shopify-recipes.md](references/shopify-recipes.md), and [qa-checklist.md](references/qa-checklist.md).
-5. Review policies and copy for this category and sales region using
+6. Review policies and copy for this category and sales region using
    [compliance.md](references/compliance.md). Verify current requirements against
    authoritative sources when writing regulated claims or legal text.
-6. Review desktop and mobile results, compare against the current live theme, get
+7. Review desktop and mobile results, compare against the current live theme, get
    explicit deployment authorization, then deploy and verify.
 
 ## Constraints
 
 - Preserve SKUs, variants, supplier locations, product forms, cart, and accelerated
   checkout unless a requested change explicitly requires otherwise.
+- No supplier-specific HTML parser, hardcoded photo crop, or guessed certification
+  belongs in the store. Use explicit typed fields and approved image assets.
 - Product facts, reviews, claims, legal identity, and contact details must come from
   the merchant or verified sources. Never publish demo data as real store facts.
 - Readability, keyboard access, and reduced-motion behavior must work regardless

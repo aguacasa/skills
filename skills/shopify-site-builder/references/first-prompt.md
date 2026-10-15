@@ -4,7 +4,8 @@ Fill in the brackets and send this to start Phase 5 after Phases 0–4.
 
 > Build the homepage and product pages for my Shopify store **[name]** ([one line on the product]). Connected store: [domain]. The theme is pulled into this repo and `shopify theme dev` is running.
 > **Brand:** wordmark at `brand/[logo].svg`; colours [hero pair] plus per-product colours [list]; display font [X], body font [Y]; vibe: [one sentence].
-> **Products:** sold through [supplier]; never change SKUs or the fulfillment location.
+> **Products:** supplied/fulfilled by [providers or own stock]; product-data source [catalog/feed/merchant]. Preserve SKU, variant, inventory, and fulfillment ownership.
+> **Services:** [apps, pixels, analytics, email/SMS, reviews, consent, other integrations or none]. Review native privacy, policies, marketing opt-in, and optional bundles/subscriptions before recommending additions.
 > **Want:** [pages and features]. Motion direction: [static, light motion, or optional product 3D]. Keep the theme's add-to-cart and accelerated checkout; build a clean footer with relevant legal links.
 > **Style:** [my brand direction, or the optional restrained-product preset]. Follow the readability and accessibility guardrails; keep text fully readable, including descenders on phone.
 > **Compliance:** follow compliance.md.
