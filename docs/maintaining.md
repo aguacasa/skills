@@ -1,5 +1,10 @@
 # Maintaining the collection
 
+This is the public distribution and marketing collection. Keep personal working
+skills in a separate private folder outside this checkout. Prepare public releases
+by deliberately generalizing reviewed copies; do not sync personal edits here
+automatically. Optional authoring links below are for public packages only.
+
 Author custom skills in `skills/<name>/`, with all required references, helpers,
 and assets. Keep frontmatter on line 1. Start from [the template](new-skill-template.md).
 Descriptions should identify a task and useful boundary, not a particular person.

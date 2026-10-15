@@ -1,8 +1,12 @@
 # Custom skills
 
-This repository is the source of truth for the author's custom skill collection.
-Author skills in `skills/<name>/`, including their references, scripts, and assets.
-Installed authoring folders should link here instead of becoming separate copies.
+This repository is a public distribution asset and marketing tool. It contains
+general-purpose skills for visitors to install and adapt. Author public packages
+in `skills/<name>/`, including their references, scripts, and assets.
+
+Personal working skills belong in a separate private folder outside this repo.
+Generalize a reviewed copy only when requested. Do not install public versions
+over the author's personal versions or use this repo for personal skill storage.
 
 - Read the relevant SKILL.md before changing its package. Preserve useful workflow
   knowledge, with optional presets for opinionated styles and private profiles
