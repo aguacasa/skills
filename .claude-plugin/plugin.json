@@ -1,0 +1,8 @@
+{
+  "name": "aguacasa-skills",
+  "description": "Custom agent skills by aguacasa: Shopify D2C storefronts and more.",
+  "author": {
+    "name": "aguacasa"
+  },
+  "repository": "https://github.com/aguacasa/skills"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "aguacasa",
+  "owner": {
+    "name": "aguacasa"
+  },
+  "metadata": {
+    "description": "Custom agent skills by aguacasa."
+  },
+  "plugins": [
+    {
+      "name": "aguacasa-skills",
+      "source": "./",
+      "description": "Every skill in this repo, as one plugin. Skills live in skills/<name>/SKILL.md."
+    }
+  ]
+}
