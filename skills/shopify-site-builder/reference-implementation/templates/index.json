@@ -10,7 +10,7 @@
 {
   "sections": {
     "hero": {
-      "type": "razzy-hero",
+      "type": "demo-hero",
       "settings": {
         "show_intro": true,
         "heading": "Wellness that <em>melts</em> on your tongue.",
@@ -32,7 +32,7 @@
       }
     },
     "tape": {
-      "type": "razzy-tape",
+      "type": "demo-tape",
       "settings": {
         "text_a": "No water | No pills | Just strips | One a day",
         "color_a": "#CEFF65",
@@ -43,7 +43,7 @@
       }
     },
     "how": {
-      "type": "razzy-how",
+      "type": "demo-how",
       "settings": {
         "heading": "Peel. Place. <em>Gone.</em>",
         "step_1_title": "Peel",
@@ -52,7 +52,7 @@
         "step_2_text": "Lay the strip on your tongue. No water, no swallowing, no chalky pills.",
         "step_3_title": "Dissolve",
         "step_3_text": "It melts away on its own. That's it. One strip a day, wherever your day takes you.",
-        "image": "shopify://shop_images/razzy-placeholder-tongue.jpg",
+        "image": "shopify://shop_images/demo-placeholder-tongue.jpg",
         "badge": "No water needed",
         "background": "#470079",
         "text_color": "#FAFAF5",
@@ -60,7 +60,7 @@
       }
     },
     "lineup": {
-      "type": "razzy-lineup",
+      "type": "demo-lineup",
       "settings": {
         "heading": "Seven strips. <em>Seven moods.</em>",
         "subheading": "Every tin holds 30 strips. Pick the feeling you're after.",
@@ -79,7 +79,7 @@
       }
     },
     "why": {
-      "type": "razzy-stats",
+      "type": "demo-stats",
       "blocks": {
         "stat_1": {
           "type": "stat",
@@ -155,13 +155,13 @@
       "settings": {
         "heading": "Your daily stack, <em>minus the swallow.</em>",
         "old_label": "Pills & powders",
-        "new_label": "Razzy strips",
+        "new_label": "Demo strips",
         "background": "#CEFF65",
         "text_color": "#054FB8"
       }
     },
     "moments": {
-      "type": "razzy-day",
+      "type": "demo-day",
       "blocks": {
         "moment_1": {
           "type": "moment",
@@ -170,7 +170,7 @@
             "title": "Out the door, <em>switched on.</em>",
             "text": "One strip on your way out. Green tea caffeine and L-theanine, no coffee queue required.",
             "product": "energy-strips",
-            "image": "shopify://shop_images/razzy-placeholder-energy.jpg"
+            "image": "shopify://shop_images/demo-placeholder-energy.jpg"
           }
         },
         "moment_2": {
@@ -180,7 +180,7 @@
             "title": "Deep work, <em>no drift.</em>",
             "text": "Lion's Mane and friends for the long stretch between meetings.",
             "product": "mushroom-focus-strips",
-            "image": "shopify://shop_images/razzy-placeholder-focus.jpg"
+            "image": "shopify://shop_images/demo-placeholder-focus.jpg"
           }
         },
         "moment_3": {
@@ -190,7 +190,7 @@
             "title": "Lunch, <em>handled.</em>",
             "text": "Probiotics and digestive enzymes after a big bowl. Strip it and get on with your afternoon.",
             "product": "digestive-gut-health-strips",
-            "image": "shopify://shop_images/razzy-placeholder-digestive.jpg"
+            "image": "shopify://shop_images/demo-placeholder-digestive.jpg"
           }
         },
         "moment_4": {
@@ -200,7 +200,7 @@
             "title": "Keep it <em>on track.</em>",
             "text": "Saffron and chromium to back up the habits you're building.",
             "product": "appetite-balance-weight-support-strips",
-            "image": "shopify://shop_images/razzy-placeholder-metabolism.jpg"
+            "image": "shopify://shop_images/demo-placeholder-metabolism.jpg"
           }
         },
         "moment_5": {
@@ -210,7 +210,7 @@
             "title": "Lights low, <em>mind quiet.</em>",
             "text": "L-theanine and GABA for winding down after a full day.",
             "product": "cognitive-relax-strips",
-            "image": "shopify://shop_images/razzy-placeholder-chill.jpg"
+            "image": "shopify://shop_images/demo-placeholder-chill.jpg"
           }
         },
         "moment_6": {
@@ -220,7 +220,7 @@
             "title": "After <em>hours.</em>",
             "text": "Cordyceps and shilajit for when the night is still young.",
             "product": "libido-support-strips",
-            "image": "shopify://shop_images/razzy-placeholder-libido.jpg"
+            "image": "shopify://shop_images/demo-placeholder-libido.jpg"
           }
         }
       },
@@ -239,7 +239,7 @@
       }
     },
     "mood": {
-      "type": "razzy-mood",
+      "type": "demo-mood",
       "blocks": {
         "mood_1": {
           "type": "mood",
@@ -305,7 +305,7 @@
       }
     },
     "signoff": {
-      "type": "razzy-bigmark",
+      "type": "demo-bigmark",
       "settings": {
         "heading": "Strip in. <em>Feel it.</em>",
         "button_label": "Shop the strips",

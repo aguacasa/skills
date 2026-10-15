@@ -1,0 +1,4 @@
+interface:
+  display_name: "Viral Topic Finder"
+  short_description: "Research audience demand for distinct content ideas"
+  default_prompt: "Use $viral-topic-finder to discover my niche and audience, then research 10 distinct video ideas."

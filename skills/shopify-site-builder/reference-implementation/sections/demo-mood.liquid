@@ -1,0 +1,314 @@
+{% comment %}
+  Section contract.
+  "How do you want to feel?" finder. Each mood button maps to a product; choosing one floods
+  the section with that product's colour from the click point and springs its tin into view
+  with an add-to-cart button. Works as plain buttons and text with reduced motion.
+  @example
+  <!-- Add a "Mood" block per feeling and pick the matching product -->
+{% endcomment %}
+{%- assign rz_first = section.blocks | where: 'type', 'mood' | first -%}
+
+<section
+  class="rz-mood"
+  data-rz-mood
+  aria-labelledby="RzMood-{{ section.id }}"
+>
+  <div class="rz-mood__stage" data-rz-mood-stage style="{% render 'demo-vars', product: rz_first.settings.product %}">
+    <div class="rz-mood__flood" data-rz-flood aria-hidden="true"></div>
+
+    <div class="rz-mood__picker">
+      <h2 class="rz-mood__prompt" id="RzMood-{{ section.id }}">{{ section.settings.prompt }}</h2>
+      <div class="rz-mood__options" role="group" aria-label="{{ section.settings.prompt | strip_html | escape }}">
+        {%- for block in section.blocks -%}
+          {%- capture rz_vars -%}{% render 'demo-vars', product: block.settings.product %}{%- endcapture -%}
+          <button
+            type="button"
+            class="rz-mood__option"
+            data-rz-mood
+            data-vars="{{ rz_vars | strip | escape }}"
+            aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+            aria-controls="RzMoodResult-{{ section.id }}-{{ forloop.index }}"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.mood | escape }}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="rz-mood__results" aria-live="polite">
+      {%- for block in section.blocks -%}
+        {%- assign rz_product = block.settings.product -%}
+        {%- assign rz_tin = rz_product.metafields.demo.cutout.value | default: rz_product.featured_image -%}
+        <div
+          class="rz-mood__result"
+          id="RzMoodResult-{{ section.id }}-{{ forloop.index }}"
+          data-rz-result
+          style="{% render 'demo-vars', product: rz_product %}"
+          {% unless forloop.first %}hidden{% endunless %}
+        >
+          <div class="rz-mood__art" data-rz-result-art>
+            {%- if rz_tin -%}
+              {{
+                rz_tin
+                | image_url: width: 900
+                | image_tag: widths: '400, 600, 900', sizes: '(min-width: 900px) 34vw, 70vw', loading: 'lazy', alt: rz_product.title
+              }}
+            {%- endif -%}
+          </div>
+          <div class="rz-mood__copy">
+            <h3 class="rz-mood__name" data-rz-result-text>
+              <a href="{{ rz_product.url }}">{{ rz_product.title | escape }}</a>
+            </h3>
+            {%- if rz_product.metafields.demo.tagline != blank -%}
+              <p class="rz-mood__tagline" data-rz-result-text>{{ rz_product.metafields.demo.tagline.value | escape }}</p>
+            {%- endif -%}
+            {%- assign rz_ingredients = rz_product.metafields.demo.ingredients.value -%}
+            {%- if rz_ingredients != blank -%}
+              <ul class="rz-chips" data-rz-result-text aria-label="Key ingredients">
+                {%- for ingredient in rz_ingredients -%}
+                  <li class="rz-chip">{{ ingredient | escape }}</li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+            <div class="rz-mood__actions" data-rz-result-text>
+              {%- if rz_product -%}
+                {% render 'demo-add-button', product: rz_product %}
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .rz-mood__stage {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: clamp(24px, 5vw, 80px);
+    min-height: 100svh;
+    padding: clamp(90px, 10vw, 150px) var(--rz-gutter);
+    overflow: clip;
+    background: var(--rz-c);
+    color: var(--rz-fg);
+    transition: color 0.5s;
+  }
+
+  .rz-mood__flood {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--rz-c);
+    clip-path: circle(0% at 50% 50%);
+    pointer-events: none;
+  }
+
+  .rz-mood__picker {
+    display: grid;
+    gap: clamp(22px, 3vw, 40px);
+  }
+
+  .rz-mood__prompt {
+    margin: 0;
+    font-family: var(--rz-display);
+    font-weight: 900;
+    font-size: clamp(44px, 6.4vw, 112px);
+    line-height: 0.86;
+    letter-spacing: -0.03em;
+    color: inherit;
+    text-wrap: balance;
+  }
+
+  .rz-mood__prompt em {
+    color: var(--rz-accent);
+  }
+
+  .rz-mood__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .rz-mood__option {
+    min-height: 48px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    box-shadow: inset 0 0 0 2px currentColor;
+    color: inherit;
+    font-family: var(--rz-display);
+    font-style: italic;
+    font-weight: 800;
+    font-size: clamp(18px, 1.6vw, 24px);
+    cursor: pointer;
+    transition:
+      background 0.4s var(--rz-ease),
+      color 0.4s var(--rz-ease),
+      transform 0.5s var(--rz-spring);
+  }
+
+  .rz-mood__option:hover {
+    transform: translateY(-3px) rotate(-2deg);
+  }
+
+  .rz-mood__option[aria-pressed='true'] {
+    background: var(--rz-accent);
+    box-shadow: none;
+    color: var(--rz-accent-fg);
+  }
+
+  .rz-mood__option:focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  .rz-mood__results {
+    display: grid;
+  }
+
+  .rz-mood__result {
+    grid-area: 1 / 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(16px, 3vw, 40px);
+    color: var(--rz-fg);
+  }
+
+  .rz-mood__result[hidden] {
+    display: none;
+  }
+
+  .rz-mood__art img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 40px 50px rgb(0 0 0 / 0.38));
+    animation: rz-float 6s ease-in-out infinite;
+  }
+
+  @keyframes rz-float {
+    50% {
+      transform: translateY(-14px) rotate(-3deg);
+    }
+  }
+
+  .rz-mood__copy {
+    display: grid;
+    justify-items: start;
+    gap: 16px;
+  }
+
+  .rz-mood__name {
+    margin: 0;
+    font-family: var(--rz-display);
+    font-weight: 900;
+    font-size: clamp(40px, 4.6vw, 80px);
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    color: var(--rz-accent);
+  }
+
+  .rz-mood__name a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .rz-mood__tagline {
+    margin: 0;
+    font-family: var(--rz-display);
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(20px, 1.8vw, 28px);
+  }
+
+  .rz-mood .rz-btn {
+    --rz-btn-bg: var(--rz-accent);
+    --rz-btn-fg: var(--rz-accent-fg);
+    --rz-burst: var(--rz-accent);
+  }
+
+  @media (max-width: 999px) {
+    .rz-mood__stage {
+      grid-template-columns: 1fr;
+    }
+
+    .rz-mood__result {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 599px) {
+    .rz-mood__result {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .rz-mood__art {
+      width: min(62vw, 280px);
+    }
+
+    .rz-mood__copy {
+      justify-items: center;
+    }
+
+    .rz-mood__copy .rz-chips {
+      justify-content: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rz-mood__art img {
+      animation: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Demo mood picker",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "prompt",
+      "label": "Prompt",
+      "default": "Right now, I want to feel <em>…</em>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mood",
+      "name": "Mood",
+      "settings": [
+        {
+          "type": "text",
+          "id": "mood",
+          "label": "Mood",
+          "default": "calm"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Demo mood picker",
+      "blocks": [
+        {
+          "type": "mood"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

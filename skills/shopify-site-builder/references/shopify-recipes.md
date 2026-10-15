@@ -33,7 +33,7 @@ Keep the theme's product section so it still handles add to cart, Shop Pay, vari
 - add a section setting that swaps the media gallery for a custom static block (the 3D stage);
 - add theme blocks inside the product details (intro, facts, badges);
 - map product colours onto the theme's own colour variables in CSS, so price and buy buttons recolour automatically;
-- parse specs from the supplier description (`razzy-description.liquid`) so the supplier copy stays the source of truth.
+- parse specs from the supplier description (`demo-description.liquid`) so the supplier copy stays the source of truth.
 
 ## Deploy
 ```bash

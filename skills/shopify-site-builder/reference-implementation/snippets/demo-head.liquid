@@ -1,0 +1,68 @@
+{% doc %}
+  Loads the Demo brand layer: self-hosted fonts (mapped onto the theme's font variables),
+  the brand stylesheet and the motion script. Render inside <head> after the theme's
+  style variables so these overrides win.
+
+  @example
+  {% render 'demo-head' %}
+{% enddoc %}
+
+<link rel="preload" href="{{ 'demo-fraunces.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'demo-bricolage.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+
+<style>
+  @font-face {
+    font-family: 'Demo Display';
+    src: url('{{ 'demo-fraunces.woff2' | asset_url }}') format('woff2');
+    font-weight: 500 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Demo Display';
+    src: url('{{ 'demo-fraunces-italic.woff2' | asset_url }}') format('woff2');
+    font-weight: 500 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Demo Sans';
+    src: url('{{ 'demo-bricolage.woff2' | asset_url }}') format('woff2');
+    font-weight: 300 800;
+    font-stretch: 75% 100%;
+    font-display: swap;
+  }
+
+  :root {
+    --font-body--family: 'Demo Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-subheading--family: 'Demo Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-accent--family: 'Demo Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-heading--family: 'Demo Display', Georgia, serif;
+    --font-heading--weight: 800;
+    --font-heading--style: normal;
+  }
+</style>
+
+{%- comment -%}
+  rz-motion hides scroll-revealed content until demo.js animates it in; it is skipped for
+  reduced motion and removed again if the script has not booted within 4 seconds.
+  rz-intro-seen skips the wordmark intro after the first view in a session.
+{%- endcomment -%}
+<script>
+  (function () {
+    var root = document.documentElement;
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      root.classList.add('rz-motion');
+      setTimeout(function () {
+        if (!window.Demo) root.classList.remove('rz-motion');
+      }, 4000);
+    }
+    try {
+      if (sessionStorage.getItem('rz-intro-seen') === '1') root.classList.add('rz-intro-seen');
+    } catch (error) {}
+    window.DemoConfig = { threeUrl: {{ 'demo-3d.js' | asset_url | json }} };
+  })();
+</script>
+
+{{ 'demo.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'demo.js' | asset_url }}" type="module"></script>

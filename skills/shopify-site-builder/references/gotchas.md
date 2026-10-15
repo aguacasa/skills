@@ -3,7 +3,7 @@
 ## Shopify theme (Helio / Horizon family)
 | Symptom | Cause | Fix |
 |---|---|---|
-| Page won't scroll on desktop; ScrollTrigger pins misfire | From 990px up the theme scrolls `.page-wrapper` and locks `html`/`body` (its "squeeze layout", which lets the cart drawer push the page aside) | Use the same scroller everywhere: `ScrollTrigger.defaults({ scroller })`, Lenis `{ wrapper, content }`. Rebuild on `matchMedia('(min-width: 990px)')` change. See `reference-implementation/src/razzy/core.js`. |
+| Page won't scroll on desktop; ScrollTrigger pins misfire | From 990px up the theme scrolls `.page-wrapper` and locks `html`/`body` (its "squeeze layout", which lets the cart drawer push the page aside) | Use the same scroller everywhere: `ScrollTrigger.defaults({ scroller })`, Lenis `{ wrapper, content }`. Rebuild on `matchMedia('(min-width: 990px)')` change. See `reference-implementation/src/demo/core.js`. |
 | Section background colour ignored | Sections are forced transparent; a sibling `.section-background` paints the palette colour | Paint the section with a more specific selector: `.shopify-section:not(.header-section) .section.my-class { background: … }` |
 | Absolutely positioned full-bleed element starts at the page gutter | `.section--page-width > *` puts every child in the centre grid column | Add `grid-column: 1 / -1` to that child |
 | Lenis fights drawers and modals | The theme sets `[scroll-lock]` on `<html>` | Watch that attribute and call `lenis.stop()` / `lenis.start()` |

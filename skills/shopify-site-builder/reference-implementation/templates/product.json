@@ -67,14 +67,14 @@
           },
           "blocks": {
             "rz_intro": {
-              "type": "razzy-product-intro",
+              "type": "demo-product-intro",
               "settings": {
                 "back_label": "All strips",
                 "show_summary": true
               }
             },
             "rz_facts": {
-              "type": "razzy-product-facts",
+              "type": "demo-product-facts",
               "settings": {}
             },
             "price_tVjtKg": {
@@ -149,7 +149,7 @@
               "block_order": []
             },
             "rz_badges": {
-              "type": "razzy-product-badges",
+              "type": "demo-product-badges",
               "settings": {}
             }
           },
@@ -162,8 +162,8 @@
             "rz_badges"
           ]
         },
-        "razzy-stage": {
-          "type": "_razzy-product-stage",
+        "demo-stage": {
+          "type": "_demo-product-stage",
           "static": true,
           "settings": {}
         }
@@ -178,19 +178,19 @@
         "background_color": "",
         "padding-block-start": 56,
         "padding-block-end": 72,
-        "razzy_stage": true
+        "demo_stage": true
       }
     },
     "tape": {
-      "type": "razzy-tape",
+      "type": "demo-tape",
       "settings": {}
     },
     "ingredients": {
-      "type": "razzy-ingredients",
+      "type": "demo-ingredients",
       "settings": {}
     },
     "details": {
-      "type": "razzy-product-details",
+      "type": "demo-product-details",
       "blocks": {
         "faq_1": {
           "type": "question",
@@ -230,7 +230,7 @@
       "settings": {}
     },
     "more": {
-      "type": "razzy-more",
+      "type": "demo-more",
       "settings": {}
     }
   },

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shopify Site Builder"
+  short_description: "Build a storefront around your brand and customers"
+  default_prompt: "Use $shopify-site-builder to discover my products, audience, brand, and scope before building."

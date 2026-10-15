@@ -1,0 +1,99 @@
+{%- doc -%}
+  Pulls one part out of a Supliful-format product description, so the description stays the
+  single source of truth. Supliful descriptions are a run of marketing paragraphs, then
+  labelled paragraphs ("<strong>Ingredients:</strong> …"), a paragraph of badge images and
+  the FDA disclaimer. Outputs nothing when the part isn't found.
+
+  Parts:
+  - summary: the first marketing paragraph, as plain text
+  - about: the remaining marketing paragraphs, as HTML
+  - ingredients, flavor, country, amount, weight, suggested_use, warning, caution: plain text
+  - badges: badge image alt texts, separated by |
+
+  @param {product} product - Product whose description is read
+  @param {string} part - Which part to output (see above)
+
+  @example
+  {%- capture summary -%}{% render 'demo-description', product: product, part: 'summary' %}{%- endcapture -%}
+{%- enddoc -%}
+{%- liquid
+  assign rz_paragraphs = product.description | split: '<p>'
+  assign rz_marketing = 0
+  assign rz_result = ''
+
+  for rz_raw in rz_paragraphs
+    assign rz_para = rz_raw | split: '</p>' | first | strip
+    assign rz_text = rz_para | strip_html | strip
+    if rz_text == blank
+      unless rz_para contains '<img'
+        continue
+      endunless
+    endif
+
+    assign rz_head = rz_para | slice: 0, 8 | downcase
+
+    if rz_head contains '<img'
+      if part == 'badges'
+        assign rz_images = rz_para | split: 'alt="'
+        for rz_image in rz_images offset: 1
+          assign rz_alt = rz_image | split: '"' | first | strip
+          if rz_alt != blank
+            if rz_result != blank
+              assign rz_result = rz_result | append: '|'
+            endif
+            assign rz_result = rz_result | append: rz_alt
+          endif
+        endfor
+      endif
+      continue
+    endif
+
+    if rz_head == '<strong>'
+      assign rz_label_html = rz_para | split: '</strong>' | first
+      assign rz_label = rz_label_html | strip_html | downcase | strip
+      assign rz_first = rz_label | slice: 0, 1
+      if rz_first == '*'
+        continue
+      endif
+
+      assign rz_value = rz_para | remove_first: rz_label_html | remove_first: '</strong>' | strip_html | strip
+      assign rz_value_first = rz_value | slice: 0, 1
+      if rz_value_first == ':'
+        assign rz_value = rz_value | remove_first: ':' | strip
+      endif
+
+      assign rz_key = ''
+      if rz_label contains 'ingredient'
+        assign rz_key = 'ingredients'
+      elsif rz_label contains 'flavor'
+        assign rz_key = 'flavor'
+      elsif rz_label contains 'country'
+        assign rz_key = 'country'
+      elsif rz_label contains 'weight'
+        assign rz_key = 'weight'
+      elsif rz_label contains 'amount'
+        assign rz_key = 'amount'
+      elsif rz_label contains 'suggested use'
+        assign rz_key = 'suggested_use'
+      elsif rz_label contains 'warning'
+        assign rz_key = 'warning'
+      elsif rz_label contains 'caution'
+        assign rz_key = 'caution'
+      endif
+
+      if rz_key == part
+        assign rz_result = rz_value
+      endif
+      continue
+    endif
+
+    assign rz_marketing = rz_marketing | plus: 1
+    if part == 'summary' and rz_marketing == 1
+      assign rz_result = rz_text
+    elsif part == 'about' and rz_marketing > 1
+      assign rz_result = rz_result | append: '<p>' | append: rz_para | append: '</p>'
+    endif
+  endfor
+
+  echo rz_result
+-%}

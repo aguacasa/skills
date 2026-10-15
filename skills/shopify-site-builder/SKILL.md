@@ -1,46 +1,62 @@
 ---
 name: shopify-site-builder
-description: Builds a premium, animated D2C storefront on a Shopify theme. It sets up the brand system (palette, fonts, logo files), product data and imagery (metafields, cutouts), then builds a 3D hero, scroll-driven product-colour sections, product pages that keep the theme's checkout, footer and legal pages, and checks every step in headless Chrome before a safe deploy. Use when the user wants to design, build, redesign or launch a Shopify store or theme, make a store look high-end, add 3D or scroll animation to Shopify, or set up a supplement or wellness D2C brand site.
+description: Design and build a Shopify theme storefront with a personalized brand system, product pages, optional motion, visual QA, and reviewed deployment. Use for new storefronts and theme redesigns.
 ---
 
-# Shopify D2C site
+# Shopify Site Builder
 
-Turns a Shopify store and a logo into a high-end, interactive storefront. It stays on Shopify's own theme, so checkout, Shop Pay, apps and the theme editor keep working, and adds a light motion layer (GSAP, Lenis, three.js) on top.
+Build on Shopify's theme system so checkout, product forms, apps, and the theme
+editor keep working. Adapt the design to the merchant, product category, and theme.
 
-## Quick start
+## Personalize and establish scope
 
-1. Confirm the Shopify connector points at the right store (`get-shop-info`).
-2. In the project repo: `shopify theme pull --store <shop>.myshopify.com --theme <liveId> --path . --nodelete`, then `shopify theme dev` (the owner signs in and enters the storefront password).
-3. `cd <skill>/scripts && npm install` once, for the screenshot and image tools.
-4. Follow [references/workflow.md](references/workflow.md) phase by phase, stopping at every **[ASK]** checkpoint.
+Read [personalization.md](references/personalization.md) on first use. Reuse an
+existing store profile or discover audience, products, regions, brand direction,
+theme, project location, and scope. Ask only for missing essentials. Offer the
+[restrained-product preset](references/restrained-product-preset.md) when useful;
+3D, animated heroes, and supplement copy are not universal requirements.
+Keep saved store preferences private and outside the installed skill.
 
-## Workflow
+## Setup and workflow
 
-- [ ] Phase 0, setup: store check, git repo, tools
-- [ ] Phase 1, brand: name and domain help, palette with a contrast table, fonts. See [design-system.md](references/design-system.md)
-- [ ] Phase 2, store audit: products, supplier, locations, shipping, templates, policies. See [shopify-recipes.md](references/shopify-recipes.md)
-- [ ] Phase 3, theme foundation: pull, preview, read the theme's AGENTS.md
-- [ ] Phase 4, assets and data: cutouts, WebP, Files, product metafields, self-hosted fonts
-- [ ] Phase 5, build: brand basics, hero, sections, product page, footer, with screenshots after each
-- [ ] Phase 6, legal and launch prep: policy drafts and owner handoffs. See [compliance.md](references/compliance.md)
-- [ ] Phase 7, ship: merge, diff live, owner go-ahead, push, verify. See [qa-checklist.md](references/qa-checklist.md)
+1. Establish whether the request is planning, a preview build, or an approved launch.
+   Verify the target store through the available Shopify tools before mutations.
+2. Inspect the existing project and theme instructions. Confirm local tools and
+   authenticated access for execution: a shell, Node, Shopify CLI, and Chrome or
+   Chromium for bundled QA. Apple Vision cutouts require macOS; use an available
+   alternative elsewhere. Read [the workflow](references/workflow.md).
+3. Pull the selected theme into the agreed project without deleting local files.
+   Work on a preview/development theme. The owner completes interactive sign-in.
+4. Build a brand system, inspect real product data, and implement the agreed pages
+   with screenshots after meaningful changes. See [design-system.md](references/design-system.md),
+   [shopify-recipes.md](references/shopify-recipes.md), and [qa-checklist.md](references/qa-checklist.md).
+5. Review policies and copy for this category and sales region using
+   [compliance.md](references/compliance.md). Verify current requirements against
+   authoritative sources when writing regulated claims or legal text.
+6. Review desktop and mobile results, compare against the current live theme, get
+   explicit deployment authorization, then deploy and verify.
 
-## Non-negotiables
+## Constraints
 
-- **Restraint:** read [restraint-rules.md](references/restraint-rules.md) before designing anything. No eyebrows, outline type, cursor followers, hint text, floating debris or drips. One hero "wow" per page. Text always wins over motion.
-- **Commerce safety:** never change SKUs, variants or a supplier's fulfillment location. Keep the theme's product form, cart drawer and accelerated checkout.
-- **Compliance:** structure/function claims only, FDA disclaimer, and no invented claims or reviews ([compliance.md](references/compliance.md)).
-- **Verify visually:** after every change, take desktop (1440×900) and phone (390×844) screenshots and contact sheets with `scripts/shoot.mjs` and `scripts/sheet.mjs`, then read them before reporting.
-- **Deploy safely:** never push to the live theme without the owner's explicit go-ahead. Diff live against the last deploy first (`scripts/deploy-check.sh`).
-- **Shared folders:** if other agent sessions use the same repo, merge and deploy through `git worktree` and don't switch the shared checkout.
-- **Passwords:** never enter passwords or storefront passwords; the owner types them.
+- Preserve SKUs, variants, supplier locations, product forms, cart, and accelerated
+  checkout unless a requested change explicitly requires otherwise.
+- Product facts, reviews, claims, legal identity, and contact details must come from
+  the merchant or verified sources. Never publish demo data as real store facts.
+- Readability, keyboard access, and reduced-motion behavior must work regardless
+  of the chosen visual style. See [design guardrails](references/restraint-rules.md).
+- Do not push to the live theme without explicit authorization. Inspect
+  `scripts/deploy-check.sh` and its diff before deployment; resolve discrepancies.
+- Reuse an existing repository. Do not create a remote, choose its visibility,
+  merge a branch, or change account settings merely because a workflow example does.
 
-## Reference implementation
+## Demo implementation
 
-`reference-implementation/` is the working Razzy build: sections, blocks, snippets, the motion layer in `src/` and the esbuild script. Copy what you need, rename the `razzy`/`rz` prefixes and the `razzy` metafield namespace to the new brand, then adapt the copy and colours. See [reference-implementation/README.md](reference-implementation/README.md).
+[reference-implementation](reference-implementation/README.md) is an anonymized
+supplement-store example built for a Helio-based theme. It is not a complete theme
+or a universal drop-in. Its `demo` names, product handles, asset references, and copy
+are examples. Select useful modules, replace all store-specific content, and adapt
+theme integration and motion to the actual store. Brand images and fonts are not bundled.
 
-## More
-
-- Known problems and fixes: [references/gotchas.md](references/gotchas.md). Check it before debugging.
-- Kickoff prompt for the build: [references/first-prompt.md](references/first-prompt.md).
-- Which model and thinking level to use for each step: [references/models.md](references/models.md).
+See [gotchas.md](references/gotchas.md) for implementation-specific problems,
+[first-prompt.md](references/first-prompt.md) for a kickoff example, and
+[models.md](references/models.md) for tool-neutral task sizing.

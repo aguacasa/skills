@@ -1,22 +1,34 @@
-# Compliance rules (supplements and wellness)
+# Product claims and policy scope
 
-These apply to every piece of copy the skill writes: product copy, taglines, FAQs, alt text and policies.
+Start with the actual product category, sales regions, supplier facts, and the
+merchant's approved claims. Do not apply supplement wording, an FDA disclaimer,
+or an adult-only age rule to unrelated stores. Verify current requirements with
+primary regulatory sources when drafting regulated copy or policies.
 
-## Claims
-- Use structure/function wording only: "supports", "helps maintain", "promotes normal…". Never say a product diagnoses, treats, cures or prevents anything.
-- Every page that makes a claim shows the FDA disclaimer: *These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.* Put it in the footer site-wide, and on product pages near the details.
-- Don't invent numbers: no speed claims ("dissolves in seconds"), absorption claims, percentages or study references unless the owner provides a source.
-- Never invent reviews, ratings, testimonials or "as seen in" logos.
-- Packaging facts (strip count, servings, flavour, country of manufacture, warnings) come from the supplier description or the label. Parse them; don't paraphrase them into new claims.
-- Ask the owner about packaging details before describing them (e.g. individually wrapped vs one sealed pack).
+## All stores
 
-## Policies
-- **Privacy:** Shopify's automatic privacy policy is a sound default until tracking or marketing tools are installed. Never publish a policy that names tools the store doesn't use.
-- **Refunds and returns:** if the supplier provides wording, use it as given.
-- **Shipping:** regions, handling time and transit time must match the supplier's actual service.
-- **Terms and contact:** legal entity, address and governing state come from the owner.
-- The Shopify connector cannot write policies, so hand over paste-ready HTML for Settings → Policies.
-- Recommend a legal review before launch. Don't present drafts as legal advice.
+- Product descriptions, packaging details, specifications, country of manufacture,
+  warnings, and usage instructions must come from supplied labels or verified data.
+- Never invent reviews, ratings, testimonials, logos, studies, performance numbers,
+  or shipping promises. Demo copy is not a source of truth.
+- Confirm the merchant's actual business identity, contact details, sales regions,
+  fulfillment arrangements, tracking tools, and return practices before policy drafts.
+  Do not ask for these details just to choose a visual style.
+- Match privacy disclosures to actual tools and data practices. Supplier return
+  language and shipping estimates must fit the store's obligations and service.
+- Use available policy-writing tools only when supported and authorized; otherwise
+  provide drafts for the merchant to review and enter. Do not assume connector capabilities.
+- Clearly label legal drafts for qualified review. Do not present a template or
+  automated check as proof that a store complies with the law.
 
-## Age and audience
-- Supplements are sold to adults 18+. Say so in the terms, FAQ and disclaimer.
+## Supplements and wellness, only when relevant
+
+The included theme fixture depicts supplements. Before adapting its claims or
+warnings, establish the product classification and jurisdiction. Consult current
+authoritative requirements for allowed claims, evidence, disclaimers, labeling,
+and any age restrictions. Do not assume every wellness product has the same rules
+or that a disclaimer makes an unsupported claim acceptable.
+
+Remove the fixture's supplement-specific footer text, product promises, and usage
+instructions when they do not apply. Confirm all retained copy against the
+merchant's actual labels and reviewed claims before launch.

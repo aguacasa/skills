@@ -1,0 +1,4 @@
+interface:
+  display_name: "Short Video"
+  short_description: "Edit short videos with your own style and workflow"
+  default_prompt: "Use $short-video to discover my editing preferences and tools, then create a checked first cut."

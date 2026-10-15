@@ -1,0 +1,126 @@
+{% doc %}
+  Product title, tagline (demo.tagline metafield) and a summary taken from the first
+  paragraph of the description. "Strips" in the title is set in italic.
+{% enddoc %}
+{%- liquid
+  assign rz_product = closest.product
+  assign rz_tagline = rz_product.metafields.demo.tagline.value
+  assign rz_title = rz_product.title | escape
+  if rz_title contains ' Strips'
+    assign rz_title = rz_title | replace: ' Strips', ' <em>Strips</em>'
+  endif
+-%}
+{%- capture rz_summary -%}{% render 'demo-description', product: rz_product, part: 'summary' %}{%- endcapture -%}
+
+<div class="rz-pdp-intro" {{ block.shopify_attributes }}>
+  {%- if block.settings.back_label != blank -%}
+    <a class="rz-pdp-intro__back" href="{{ block.settings.back_link | default: routes.all_products_collection_url }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      {{ block.settings.back_label | escape }}
+    </a>
+  {%- endif -%}
+  <h1 class="rz-pdp-intro__title">{{ rz_title }}</h1>
+  {%- if rz_tagline != blank -%}
+    <p class="rz-pdp-intro__tagline">{{ rz_tagline | escape }}</p>
+  {%- endif -%}
+  {%- if block.settings.show_summary and rz_summary != blank -%}
+    <p class="rz-pdp-intro__summary">{{ rz_summary }}</p>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .rz-pdp-intro {
+    display: grid;
+    justify-items: start;
+    gap: 14px;
+  }
+
+  .rz-pdp-intro__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    color: inherit;
+    font-family: var(--rz-sans);
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.3s, gap 0.4s var(--rz-spring);
+  }
+
+  .rz-pdp-intro__back:hover {
+    gap: 12px;
+    opacity: 1;
+  }
+
+  .rz-pdp-intro__back svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .rz-pdp-intro__title {
+    margin: 0;
+    font-family: var(--rz-display);
+    font-weight: 900;
+    font-size: clamp(52px, 6.2vw, 104px);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    color: var(--rz-accent, currentColor);
+    text-wrap: balance;
+  }
+
+  .rz-pdp-intro__title em {
+    font-style: italic;
+    font-weight: 800;
+    color: var(--rz-fg, currentColor);
+  }
+
+  .rz-pdp-intro__tagline {
+    margin: 0;
+    font-family: var(--rz-display);
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(22px, 2vw, 30px);
+    line-height: 1.1;
+  }
+
+  .rz-pdp-intro__summary {
+    max-width: 52ch;
+    margin: 4px 0 0;
+    font-size: clamp(16px, 1.15vw, 18px);
+    line-height: 1.55;
+    opacity: 0.92;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Demo product intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Back link label",
+      "default": "All strips"
+    },
+    {
+      "type": "url",
+      "id": "back_link",
+      "label": "Back link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_summary",
+      "label": "Show summary",
+      "info": "The first paragraph of the product description.",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Demo product intro"
+    }
+  ]
+}
+{% endschema %}

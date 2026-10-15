@@ -1,0 +1,2 @@
+#!/bin/sh
+python3 scripts/link_skills.py --apply || printf '%s\n' 'Skill linking needs attention; see the conflict above.' >&2

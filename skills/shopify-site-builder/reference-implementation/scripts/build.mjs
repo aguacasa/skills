@@ -1,14 +1,14 @@
-// Bundles the Razzy storefront scripts into the theme's flat assets/ folder.
-//   assets/razzy.js     global motion layer (smooth scroll, scroll animations, cursor, cart buttons)
-//   assets/razzy-3d.js  three.js scenes, loaded on demand by razzy.js
+// Bundles the Demo storefront scripts into the theme's flat assets/ folder.
+//   assets/demo.js     global motion layer (smooth scroll, scroll animations, cursor, cart buttons)
+//   assets/demo-3d.js  three.js scenes, loaded on demand by demo.js
 import * as esbuild from 'esbuild';
 
 const watch = process.argv.includes('--watch');
 
 const options = {
   entryPoints: {
-    razzy: 'src/razzy/main.js',
-    'razzy-3d': 'src/razzy/three/index.js',
+    demo: 'src/demo/main.js',
+    'demo-3d': 'src/demo/three/index.js',
   },
   outdir: 'assets',
   bundle: true,

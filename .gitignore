@@ -1,3 +1,15 @@
 node_modules/
 .DS_Store
 shots/
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+
+.skill-profiles/
+skills/shopify-site-builder/reference-implementation/assets/demo.js
+skills/shopify-site-builder/reference-implementation/assets/demo-3d.js

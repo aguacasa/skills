@@ -1,0 +1,4 @@
+interface:
+  display_name: "Video Script"
+  short_description: "Write short video scripts in your own voice"
+  default_prompt: "Use $video-script to discover my audience and voice, then develop a complete recording script."
