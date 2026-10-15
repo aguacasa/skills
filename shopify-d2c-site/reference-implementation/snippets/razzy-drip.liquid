@@ -1,0 +1,12 @@
+{%- doc -%}
+  Melting drips that hang from the bottom edge of a section into the next one.
+  Place inside a positioned section; the drips take the colour passed in.
+
+  @param {string} color - Fill colour, usually the section's background
+
+  @example
+  {% render 'razzy-drip', color: section.settings.background %}
+{%- enddoc -%}
+<svg class="rz-drip" style="--rz-drip-color: {{ color }}" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <path fill="currentColor" d="M0 0H1440V18C1400 18 1392 30 1390 52 1388 74 1376 84 1364 84 1352 84 1340 74 1338 52 1336 30 1328 18 1290 18H1180C1150 18 1146 26 1145 40 1144 54 1136 60 1128 60 1120 60 1112 54 1111 40 1110 26 1106 18 1076 18H900C860 18 852 34 850 62 848 90 834 100 818 100 802 100 788 90 786 62 784 34 776 18 736 18H560C530 18 526 26 525 38 524 50 518 56 510 56 502 56 496 50 495 38 494 26 490 18 460 18H300C262 18 254 32 252 56 250 80 238 90 224 90 210 90 198 80 196 56 194 32 186 18 148 18H0Z"/>
+</svg>

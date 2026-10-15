@@ -1,0 +1,332 @@
+{% comment %}
+  Section contract.
+  "A strip for every moment" — sticky lifestyle cards that stack as you scroll. Each card pairs
+  a duotone photo (in the product's colour, full colour on hover) with a time of day, a line of
+  copy and the product's tin.
+  @example
+  <!-- Add a "Moment" block per card; pick a product to colour the card -->
+{% endcomment %}
+
+<section class="rz-day" data-rz-day style="--rz-day-bg: {{ section.settings.background }}; --rz-day-fg: {{ section.settings.text_color }};">
+  <div class="rz-day__head">
+    <h2 class="rz-h2" data-rz-split>{{ section.settings.heading }}</h2>
+  </div>
+
+  <div class="rz-day__stack">
+    {%- for block in section.blocks -%}
+      {%- assign rz_product = block.settings.product -%}
+      {%- assign rz_tin = rz_product.metafields.razzy.cutout.value -%}
+      <article
+        class="rz-moment"
+        data-rz-moment
+        style="--i: {{ forloop.index0 }}; {% render 'razzy-vars', product: rz_product %}"
+        {{ block.shopify_attributes }}
+      >
+        <div class="rz-moment__inner" data-rz-moment-inner>
+          <div class="rz-moment__photo">
+            {%- if block.settings.image -%}
+              <div class="rz-moment__parallax" data-rz-parallax>
+                {%- comment -%}
+                  Duotone base layer plus a full-colour copy that fades in on hover. Both use
+                  the same URL, so the browser downloads it once.
+                {%- endcomment -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1400
+                  | image_tag:
+                    widths: '500, 800, 1100, 1400',
+                    sizes: '(min-width: 900px) 50vw, 100vw',
+                    loading: 'lazy',
+                    class: 'rz-moment__duo',
+                    alt: block.settings.image.alt
+                }}
+                {{
+                  block.settings.image
+                  | image_url: width: 1400
+                  | image_tag:
+                    widths: '500, 800, 1100, 1400',
+                    sizes: '(min-width: 900px) 50vw, 100vw',
+                    loading: 'lazy',
+                    class: 'rz-moment__color',
+                    alt: ''
+                }}
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="rz-moment__copy">
+            <p class="rz-moment__time">{{ block.settings.time | escape }}</p>
+            <h3 class="rz-moment__title">{{ block.settings.title }}</h3>
+            <p class="rz-moment__text">{{ block.settings.text | escape }}</p>
+            {%- if rz_product -%}
+              <a class="rz-btn rz-moment__cta" href="{{ rz_product.url }}">
+                {{ rz_product.title | escape }}
+                <svg class="rz-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            {%- endif -%}
+          </div>
+          {%- if rz_tin -%}
+            {{
+              rz_tin
+              | image_url: width: 600
+              | image_tag: widths: '300, 450, 600', sizes: '(min-width: 900px) 16vw, 34vw', loading: 'lazy', alt: '', class: 'rz-moment__tin'
+            }}
+          {%- endif -%}
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .rz-day {
+    position: relative;
+    padding: clamp(110px, 12vw, 180px) var(--rz-gutter) clamp(60px, 8vw, 120px);
+    background: var(--rz-day-bg);
+    color: var(--rz-day-fg);
+  }
+
+  .rz-day__head {
+    display: grid;
+    gap: 22px;
+    max-width: 1100px;
+    margin-bottom: clamp(40px, 6vw, 90px);
+  }
+
+  .rz-moment {
+    position: sticky;
+    top: calc(var(--header-height, 72px) + 16px + var(--i) * 14px);
+    height: min(76svh, 760px);
+    margin-bottom: 8svh;
+  }
+
+  .rz-moment:last-child {
+    margin-bottom: 0;
+  }
+
+  .rz-moment__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    height: 100%;
+    border-radius: var(--rz-radius);
+    background: var(--rz-c);
+    color: var(--rz-fg);
+    box-shadow: 0 -20px 60px rgb(5 6 11 / 0.12);
+    transform-origin: 50% 0;
+    overflow: hidden;
+  }
+
+  /* Duotone: greyscale photo multiplied into the product colour; full colour on hover. */
+  .rz-moment__photo {
+    position: relative;
+    overflow: hidden;
+    background: var(--rz-c);
+  }
+
+  .rz-moment__parallax {
+    position: absolute;
+    inset: -8% 0;
+    /* The parallax transform makes this a stacking context, so the multiply needs its own backdrop. */
+    background: var(--rz-c);
+  }
+
+  .rz-moment__photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Duotone: greyscale photo multiplied into the product colour. The colour copy on top
+     only ever changes opacity, so hovering (or a card sliding under the cursor) fades
+     smoothly instead of snapping. */
+  .rz-moment__duo {
+    filter: grayscale(1) contrast(1.15) brightness(1.08);
+    mix-blend-mode: multiply;
+  }
+
+  .rz-moment__color {
+    opacity: 0;
+    transition: opacity 1.1s var(--rz-ease);
+  }
+
+  .rz-moment__photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgb(206 255 101 / 0.35), transparent 45%);
+    mix-blend-mode: screen;
+    transition: opacity 1.1s var(--rz-ease);
+    pointer-events: none;
+  }
+
+  @media (hover: hover) {
+    .rz-moment__inner:hover .rz-moment__color {
+      opacity: 1;
+    }
+
+    .rz-moment__inner:hover .rz-moment__photo::after {
+      opacity: 0;
+    }
+  }
+
+  .rz-moment__copy {
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 18px;
+    padding: clamp(28px, 4vw, 72px);
+  }
+
+  .rz-moment__time {
+    margin: 0;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--rz-accent);
+    color: var(--rz-accent-fg);
+    font-family: var(--rz-sans);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .rz-moment__title {
+    margin: 0;
+    font-family: var(--rz-display);
+    font-weight: 900;
+    font-size: clamp(40px, 5.2vw, 92px);
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    color: inherit;
+  }
+
+  .rz-moment__title em {
+    color: var(--rz-accent);
+  }
+
+  .rz-moment__text {
+    max-width: 34ch;
+    margin: 0;
+    font-size: clamp(16px, 1.25vw, 19px);
+    line-height: 1.5;
+  }
+
+  .rz-moment__cta {
+    --rz-btn-bg: var(--rz-accent);
+    --rz-btn-fg: var(--rz-accent-fg);
+    margin-top: 6px;
+  }
+
+  .rz-moment__tin {
+    position: absolute;
+    right: calc(47.6% + clamp(14px, 2vw, 32px));
+    bottom: clamp(18px, 3vw, 46px);
+    width: clamp(140px, 16vw, 260px);
+    height: auto;
+    filter: drop-shadow(0 26px 34px rgb(0 0 0 / 0.38));
+    transform: rotate(-10deg);
+    transition: transform 0.8s var(--rz-spring);
+  }
+
+  .rz-moment__inner:hover .rz-moment__tin {
+    transform: rotate(4deg) translateY(-10px) scale(1.06);
+  }
+
+  @media (max-width: 899px) {
+    .rz-moment {
+      height: min(82svh, 720px);
+    }
+
+    .rz-moment__inner {
+      grid-template-columns: 1fr;
+      grid-template-rows: 42% 1fr;
+    }
+
+    .rz-moment__copy {
+      align-content: start;
+      gap: 12px;
+      padding: 34px 24px 24px;
+    }
+
+    .rz-moment__tin {
+      right: 18px;
+      top: calc(42% - 70px);
+      bottom: auto;
+      width: 120px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Razzy moments",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A strip for <em>every moment.</em>"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#FAFAF5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#05060B"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "moment",
+      "name": "Moment",
+      "settings": [
+        {
+          "type": "text",
+          "id": "time",
+          "label": "Time",
+          "default": "7:00 AM"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "Out the door, <em>switched on.</em>"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "A strip on your way out, no coffee queue required."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Razzy moments",
+      "blocks": [
+        {
+          "type": "moment"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

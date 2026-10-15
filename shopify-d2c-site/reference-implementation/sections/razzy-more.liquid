@@ -1,0 +1,232 @@
+{% comment %}
+  Section contract.
+  "Build your stack" — cards for the other Razzy products in their colours, each with the
+  tin cutout, tagline and one-tap add to cart. On a product page the current product is
+  left out.
+  @example
+  <!-- Pick products, or leave empty to show everything in the store -->
+{% endcomment %}
+{%- liquid
+  assign rz_products = section.settings.products
+  if rz_products == blank
+    assign rz_products = collections.all.products
+  endif
+-%}
+
+<section class="rz-more" style="--rz-more-bg: {{ section.settings.background }}; --rz-more-fg: {{ section.settings.text_color }};">
+  <div class="rz-more__head">
+    <h2 class="rz-h2" data-rz-split>{{ section.settings.heading }}</h2>
+    {%- if section.settings.button_label != blank -%}
+      <a class="rz-btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" data-rz-magnetic data-rz-reveal>
+        {{ section.settings.button_label | escape }}
+        <svg class="rz-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    {%- endif -%}
+  </div>
+
+  <ul class="rz-more__grid">
+    {%- for rz_item in rz_products limit: 12 -%}
+      {%- if product and rz_item.id == product.id -%}{%- continue -%}{%- endif -%}
+      {%- assign rz_tin = rz_item.metafields.razzy.cutout.value | default: rz_item.featured_image -%}
+      <li class="rz-card" style="{% render 'razzy-vars', product: rz_item %}" data-rz-tilt="8" data-rz-reveal>
+        <a class="rz-card__media" href="{{ rz_item.url }}" tabindex="-1" aria-hidden="true">
+          {%- if rz_tin -%}
+            {{ rz_tin | image_url: width: 600 | image_tag: widths: '300, 450, 600', sizes: '(min-width: 1000px) 22vw, (min-width: 600px) 40vw, 70vw', loading: 'lazy', alt: '' }}
+          {%- endif -%}
+        </a>
+        <div class="rz-card__body">
+          <h3 class="rz-card__title"><a href="{{ rz_item.url }}">{{ rz_item.title | remove: ' Strips' | escape }}</a></h3>
+          {%- if rz_item.metafields.razzy.tagline != blank -%}
+            <p class="rz-card__tagline">{{ rz_item.metafields.razzy.tagline.value | escape }}</p>
+          {%- endif -%}
+          {% render 'razzy-add-button', product: rz_item %}
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% stylesheet %}
+  .rz-more {
+    display: grid;
+    gap: clamp(36px, 5vw, 70px);
+    padding: clamp(90px, 10vw, 150px) var(--rz-gutter);
+    background: var(--rz-more-bg);
+    color: var(--rz-more-fg);
+  }
+
+  .rz-more__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .rz-more__head .rz-btn {
+    --rz-btn-bg: var(--rz-more-fg);
+    --rz-btn-fg: var(--rz-more-bg);
+  }
+
+  .rz-more__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(14px, 1.6vw, 24px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rz-card {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    border-radius: var(--rz-radius);
+    background: var(--rz-c);
+    color: var(--rz-fg);
+    overflow: hidden;
+    transform-style: preserve-3d;
+  }
+
+  .rz-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--rz-glare-x, 50%) var(--rz-glare-y, 0%), rgb(255 255 255 / 0.2), transparent 55%);
+    pointer-events: none;
+  }
+
+  .rz-card__media {
+    display: grid;
+    place-items: center;
+    padding: clamp(24px, 3vw, 44px) clamp(24px, 3vw, 44px) 0;
+  }
+
+  .rz-card__media img {
+    width: min(78%, 300px);
+    height: auto;
+    filter: drop-shadow(0 26px 30px rgb(0 0 0 / 0.35));
+    transition: transform 0.8s var(--rz-spring);
+  }
+
+  .rz-card:hover .rz-card__media img {
+    transform: rotate(-6deg) scale(1.06) translateY(-6px);
+  }
+
+  .rz-card__body {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    align-content: end;
+    justify-items: start;
+    gap: 10px;
+    padding: clamp(18px, 2vw, 28px);
+  }
+
+  .rz-card__title {
+    margin: 0;
+    font-family: var(--rz-display);
+    font-weight: 900;
+    font-size: clamp(30px, 2.8vw, 44px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--rz-accent);
+  }
+
+  .rz-card__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .rz-card__tagline {
+    margin: 0 0 6px;
+    font-family: var(--rz-display);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .rz-card .rz-btn {
+    --rz-btn-bg: var(--rz-accent);
+    --rz-btn-fg: var(--rz-accent-fg);
+    --rz-burst: var(--rz-accent);
+    min-height: 48px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 999px) {
+    .rz-more__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 599px) {
+    .rz-more__grid {
+      display: flex;
+      gap: 12px;
+      margin-inline: calc(var(--rz-gutter) * -1);
+      padding-inline: var(--rz-gutter);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .rz-more__grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .rz-card {
+      flex: 0 0 76vw;
+      scroll-snap-align: start;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Razzy more strips",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Build your <em>stack.</em>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop all"
+    },
+    {
+      "type": "text",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products",
+      "limit": 12
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#054FB8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#CEFF65"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Razzy more strips"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,265 @@
+{% comment %}
+  Section contract.
+  "Why a strip" — big count-up numbers on tilting tiles plus an old-way vs Razzy comparison.
+  @example
+  <!-- Add "Stat" blocks for numbers and "Comparison row" blocks for the table -->
+{% endcomment %}
+
+<section
+  class="rz-stats"
+  data-rz-stats
+  style="--rz-stats-bg: {{ section.settings.background }}; --rz-stats-fg: {{ section.settings.text_color }};"
+>
+  <div class="rz-stats__head">
+    <h2 class="rz-h2" data-rz-split>{{ section.settings.heading }}</h2>
+  </div>
+
+  <ul class="rz-stats__grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'stat' -%}
+        <li class="rz-stat" data-rz-tilt="10" data-rz-reveal {{ block.shopify_attributes }}>
+          <span class="rz-stat__value">
+            <span data-rz-count="{{ block.settings.number }}">{{ block.settings.number }}</span>
+            {%- if block.settings.suffix != blank -%}<span class="rz-stat__suffix">{{ block.settings.suffix | escape }}</span>{%- endif -%}
+          </span>
+          <span class="rz-stat__label">{{ block.settings.label | escape }}</span>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+
+  <div class="rz-compare" data-rz-reveal>
+    <div class="rz-compare__row rz-compare__row--head">
+      <span>{{ section.settings.old_label | escape }}</span>
+      <span>{{ section.settings.new_label | escape }}</span>
+    </div>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'compare' -%}
+        <div class="rz-compare__row" {{ block.shopify_attributes }}>
+          <span class="rz-compare__old">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+            {{ block.settings.old | escape }}
+          </span>
+          <span class="rz-compare__new">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            {{ block.settings.new | escape }}
+          </span>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .rz-stats {
+    position: relative;
+    display: grid;
+    gap: clamp(40px, 6vw, 96px);
+    padding: clamp(110px, 14vw, 200px) var(--rz-gutter) clamp(90px, 10vw, 150px);
+    background: var(--rz-stats-bg);
+    color: var(--rz-stats-fg);
+  }
+
+  .rz-stats__head {
+    display: grid;
+    gap: 22px;
+    max-width: 1100px;
+  }
+
+  .rz-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: clamp(12px, 1.6vw, 22px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rz-stat {
+    position: relative;
+    display: grid;
+    align-content: space-between;
+    gap: 40px;
+    min-height: clamp(240px, 24vw, 340px);
+    padding: clamp(22px, 2.4vw, 34px);
+    border-radius: var(--rz-radius);
+    background: var(--rz-stats-fg);
+    color: var(--rz-stats-bg);
+    overflow: hidden;
+    transform-style: preserve-3d;
+  }
+
+  .rz-stat::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--rz-glare-x, 50%) var(--rz-glare-y, 0%), rgb(255 255 255 / 0.22), transparent 55%);
+    pointer-events: none;
+  }
+
+  .rz-stat__value {
+    display: flex;
+    align-items: baseline;
+    font-family: var(--rz-display);
+    font-weight: 900;
+    font-size: clamp(110px, 12vw, 220px);
+    line-height: 0.78;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rz-stat__suffix {
+    font-size: 0.4em;
+    letter-spacing: 0;
+  }
+
+  .rz-stat__label {
+    font-family: var(--rz-sans);
+    font-weight: 700;
+    font-size: clamp(16px, 1.3vw, 20px);
+    line-height: 1.2;
+  }
+
+  .rz-compare {
+    display: grid;
+    border-top: 2px solid currentColor;
+    font-family: var(--rz-sans);
+    font-size: clamp(16px, 1.6vw, 24px);
+    font-weight: 600;
+  }
+
+  .rz-compare__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding-block: clamp(14px, 1.6vw, 22px);
+    border-bottom: 2px solid currentColor;
+  }
+
+  .rz-compare__row--head {
+    font-family: var(--rz-display);
+    font-weight: 900;
+    font-size: clamp(26px, 3vw, 48px);
+    letter-spacing: -0.02em;
+  }
+
+  .rz-compare__old,
+  .rz-compare__new {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .rz-compare__old {
+    opacity: 0.55;
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+
+  .rz-compare svg {
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+  }
+
+  @media (max-width: 699px) {
+    .rz-compare__row {
+      gap: 12px;
+      font-size: 15px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Razzy why strips",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your daily stack, <em>minus the swallow.</em>"
+    },
+    {
+      "type": "text",
+      "id": "old_label",
+      "label": "Comparison: old way",
+      "default": "Pills & powders"
+    },
+    {
+      "type": "text",
+      "id": "new_label",
+      "label": "Comparison: Razzy",
+      "default": "Razzy strips"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#CEFF65"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#054FB8"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "number",
+          "id": "number",
+          "label": "Number",
+          "default": 30
+        },
+        {
+          "type": "text",
+          "id": "suffix",
+          "label": "Suffix"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "strips in every tin"
+        }
+      ]
+    },
+    {
+      "type": "compare",
+      "name": "Comparison row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "old",
+          "label": "Old way",
+          "default": "Swallow with a glass of water"
+        },
+        {
+          "type": "text",
+          "id": "new",
+          "label": "Razzy",
+          "default": "Melts on your tongue"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Razzy why strips",
+      "blocks": [
+        {
+          "type": "stat"
+        },
+        {
+          "type": "compare"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

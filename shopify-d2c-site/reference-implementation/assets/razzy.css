@@ -1,0 +1,430 @@
+/* Razzy brand layer: tokens, type, buttons, cursor, grain and shared motion states.
+   Section-specific styles live in each razzy-* section's {% stylesheet %}. */
+
+:root {
+  --rz-blue: #054fb8;
+  --rz-lime: #ceff65;
+  --rz-ink: #05060b;
+  --rz-cream: #fafaf5;
+  --rz-chill: #470079;
+  --rz-coral: #ff7654;
+  --rz-cyan: #0baed1;
+  --rz-pink: #d13e81;
+  --rz-teal: #016660;
+  --rz-brown: #643724;
+
+  --rz-display: 'Razzy Display', 'Fraunces', Georgia, serif;
+  --rz-sans: 'Razzy Sans', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+
+  --rz-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --rz-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --rz-gutter: clamp(20px, 4vw, 56px);
+  --rz-radius: clamp(22px, 2.6vw, 40px);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Lenis smooth scrolling */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* Type */
+.rz-display {
+  font-family: var(--rz-display);
+  font-weight: 900;
+  line-height: 0.86;
+  letter-spacing: -0.025em;
+  font-optical-sizing: auto;
+}
+
+.rz-h2 {
+  margin: 0;
+  font-family: var(--rz-display);
+  font-weight: 900;
+  font-size: clamp(46px, 7.6vw, 132px);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.rz-h2 em,
+.rz-display em {
+  font-style: italic;
+  font-weight: 800;
+}
+
+.rz-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  margin: 0;
+  font-family: var(--rz-sans);
+  font-weight: 700;
+  font-size: 13px;
+  font-stretch: 85%;
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.rz-eyebrow::before {
+  content: '';
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.rz-lead {
+  margin: 0;
+  font-family: var(--rz-sans);
+  font-size: clamp(17px, 1.35vw, 21px);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* SplitText wraps each line in an overflow-clipped mask. Pad the mask so ascenders,
+   descenders (y, g, p) and italic overhangs aren't cut off, and cancel the padding with
+   negative margins so line spacing doesn't change. */
+.rz-line-mask {
+  padding: 0.14em 0.08em 0.24em;
+  margin: -0.14em -0.08em -0.24em;
+}
+
+/* Buttons */
+.rz-btn {
+  --rz-btn-bg: var(--rz-lime);
+  --rz-btn-fg: var(--rz-ink);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  min-height: 54px;
+  padding: 0 1.7em;
+  border: 0;
+  border-radius: 999px;
+  background: var(--rz-btn-bg);
+  color: var(--rz-btn-fg);
+  font-family: var(--rz-sans);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 0.45s var(--rz-ease),
+    transform 0.5s var(--rz-spring);
+}
+
+.rz-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--rz-btn-fg);
+  transform: translateY(101%);
+  transition: transform 0.5s var(--rz-ease);
+}
+
+.rz-btn:hover::before,
+.rz-btn:focus-visible::before {
+  transform: translateY(0);
+}
+
+.rz-btn:hover,
+.rz-btn:focus-visible {
+  color: var(--rz-btn-bg);
+}
+
+.rz-btn:active {
+  transform: scale(0.96);
+}
+
+.rz-btn:focus-visible {
+  outline: 3px solid var(--rz-btn-fg);
+  outline-offset: 3px;
+}
+
+.rz-btn--ghost {
+  --rz-btn-bg: transparent;
+  --rz-btn-fg: currentColor;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+
+.rz-btn--ghost:hover,
+.rz-btn--ghost:focus-visible {
+  color: var(--rz-ghost-hover, var(--rz-ink));
+}
+
+.rz-btn__icon {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+  transition: transform 0.5s var(--rz-spring);
+}
+
+.rz-btn:hover .rz-btn__icon {
+  transform: translateX(3px) rotate(-45deg);
+}
+
+.rz-btn--xl {
+  min-height: clamp(58px, 4.6vw, 70px);
+  padding: 0 clamp(26px, 2.4vw, 40px);
+  font-size: clamp(16px, 1.25vw, 19px);
+}
+
+/* Header menu: bolder links in the display face to match the page */
+#header-component .menu-list__link-title {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* Add-to-cart button states (set by razzy.js) */
+.rz-add [data-label] {
+  display: none;
+}
+.rz-add:not([data-state]) [data-label='idle'],
+.rz-add[data-state=''] [data-label='idle'],
+.rz-add[data-state='loading'] [data-label='loading'],
+.rz-add[data-state='added'] [data-label='added'],
+.rz-add[data-state='error'] [data-label='error'] {
+  display: inline;
+}
+.rz-add[data-state='loading'] {
+  cursor: progress;
+}
+
+/* Chips */
+.rz-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rz-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+  font-family: var(--rz-sans);
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Melting drips that hang from the bottom of a section into the next one */
+.rz-drip {
+  position: absolute;
+  left: 0;
+  top: calc(100% - 2px);
+  z-index: 4;
+  width: 100%;
+  height: clamp(36px, 6vw, 96px);
+  color: var(--rz-drip-color, currentColor);
+  pointer-events: none;
+}
+
+.rz-drip path {
+  transform-origin: 50% 0;
+  animation: rz-drip 5s ease-in-out infinite alternate;
+}
+
+@keyframes rz-drip {
+  to {
+    transform: scaleY(1.08);
+  }
+}
+
+/* Film grain over the whole page */
+.rz-grain {
+  position: fixed;
+  inset: -100%;
+  z-index: 2147482000;
+  width: 300%;
+  height: 300%;
+  pointer-events: none;
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: rz-grain 0.9s steps(5) infinite;
+}
+
+@keyframes rz-grain {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-3%, 2%);
+  }
+  40% {
+    transform: translate(2%, -3%);
+  }
+  60% {
+    transform: translate(-2%, -1%);
+  }
+  80% {
+    transform: translate(3%, 3%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Success confetti from add-to-cart */
+.rz-burst {
+  position: fixed;
+  z-index: 2147483001;
+  width: 14px;
+  height: 9px;
+  margin: -4px 0 0 -7px;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+/* Hide motion-revealed content only while JS is expected to reveal it */
+html.rz-motion [data-rz-reveal] {
+  opacity: 0;
+}
+
+html.rz-motion.rz-ready [data-rz-reveal] {
+  opacity: unset;
+}
+
+/* Visually hidden helper */
+.rz-sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rz-grain,
+  .rz-drip path {
+    animation: none;
+  }
+  .rz-btn,
+  .rz-btn::before {
+    transition: none;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Product page: Helio's product section with the Razzy stage switched on.
+   The section carries the product's colour variables (snippets/razzy-vars);
+   these map them onto the theme's own colour variables so Helio's price,
+   quantity, add-to-cart and accelerated checkout pick them up.
+   ------------------------------------------------------------------------- */
+.rz-pdp {
+  --color-background: var(--rz-c);
+  --color-background-rgb: var(--rz-c-rgb);
+  --color-foreground: var(--rz-fg);
+  --color-foreground-rgb: var(--rz-fg-rgb);
+  --color-border: var(--rz-fg);
+  --color-border-rgb: var(--rz-fg-rgb);
+  --color-primary-button-background: var(--rz-accent);
+  --color-primary-button-text: var(--rz-accent-fg);
+  --color-primary-button-border: var(--rz-accent);
+  --color-primary-button-hover-background: var(--rz-fg);
+  --color-primary-button-hover-text: var(--rz-c);
+  --color-primary-button-hover-border: var(--rz-fg);
+  --color-secondary-button-background: transparent;
+  --color-secondary-button-text: var(--rz-fg);
+  --color-secondary-button-border: var(--rz-fg);
+  --color-input-background: transparent;
+  --color-input-text: var(--rz-fg);
+  --color-input-text-rgb: var(--rz-fg-rgb);
+  --color-input-border: var(--rz-fg);
+  position: relative;
+  color: var(--rz-fg);
+}
+
+/* Helio makes sections transparent and paints a sibling .section-background with the
+   palette colour; that sibling can't see the product colour, so paint the section itself. */
+.shopify-section:not(.header-section) .section.rz-pdp {
+  background: var(--rz-c);
+}
+
+
+
+.rz-pdp .product-details {
+  font-family: var(--rz-sans);
+}
+
+.rz-pdp .price,
+.rz-pdp .price-item__group.price {
+  font-family: var(--rz-display);
+  font-weight: 900;
+  font-size: clamp(34px, 3vw, 46px);
+  letter-spacing: -0.02em;
+  color: var(--rz-fg);
+}
+
+.rz-pdp .compare-at-price {
+  font-family: var(--rz-sans);
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+/* Helio's unstyled buttons (media gallery dots and zoom) keep their own sizing; :where()
+   keeps this selector's specificity where it was. */
+.rz-pdp .add-to-cart-button,
+.rz-pdp .quantity-selector,
+.rz-pdp :is(.quantity-minus, .quantity-plus),
+.rz-pdp .button:not(:where(.button-unstyled)),
+.rz-pdp .button-secondary {
+  min-height: 60px;
+  border-radius: 999px;
+  font-family: var(--rz-sans);
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+}
+
+.rz-pdp .quantity-selector {
+  border: 2px solid var(--rz-fg);
+}
+
+.rz-pdp .add-to-cart-button[disabled],
+.rz-pdp .add-to-cart-button[aria-disabled='true'] {
+  opacity: 0.6;
+}
+
+.rz-pdp shopify-accelerated-checkout,
+.rz-pdp shopify-accelerated-checkout-cart {
+  --shopify-accelerated-checkout-button-border-radius: 999px;
+  --shopify-accelerated-checkout-button-block-size: 58px;
+}
+
+@media (min-width: 750px) {
+  .rz-pdp .product-details {
+    padding-inline-start: clamp(8px, 2vw, 40px);
+  }
+}

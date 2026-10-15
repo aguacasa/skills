@@ -1,0 +1,34 @@
+{%- doc -%}
+  Outputs CSS custom properties for a Razzy product colour, picking readable text and
+  accent colours from the colour's brightness:
+  --rz-c (background), --rz-fg (body text), --rz-accent (display type, buttons),
+  --rz-accent-fg (text on an accent fill), plus --rz-c-rgb and --rz-fg-rgb triplets.
+
+  @param {product} [product] - Product whose razzy.color metafield is used
+  @param {string} [color] - Hex colour that overrides the product's colour
+
+  @example
+  <article style="{% render 'razzy-vars', product: product %}">
+{%- enddoc -%}
+{%- capture rz_color -%}{{ color | default: product.metafields.razzy.color.value | default: '#054FB8' }}{%- endcapture -%}
+{%- liquid
+  assign rz_brightness = rz_color | color_brightness
+  if rz_brightness > 100
+    assign rz_fg = '#05060B'
+  else
+    assign rz_fg = '#FAFAF5'
+  endif
+  if rz_brightness > 120
+    assign rz_accent = '#05060B'
+    assign rz_accent_fg = '#CEFF65'
+  else
+    assign rz_accent = '#CEFF65'
+    assign rz_accent_fg = '#05060B'
+  endif
+-%}
+{%- liquid
+  # Space-separated RGB triplets, the format the theme's --color-*-rgb variables use.
+  assign rz_c_rgb = rz_color | color_to_rgb | remove: 'rgb(' | remove: ')' | replace: ',', ' ' | replace: '  ', ' '
+  assign rz_fg_rgb = rz_fg | color_to_rgb | remove: 'rgb(' | remove: ')' | replace: ',', ' ' | replace: '  ', ' '
+-%}
+--rz-c: {{ rz_color }}; --rz-fg: {{ rz_fg }}; --rz-accent: {{ rz_accent }}; --rz-accent-fg: {{ rz_accent_fg }}; --rz-c-rgb: {{ rz_c_rgb }}; --rz-fg-rgb: {{ rz_fg_rgb }};

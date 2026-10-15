@@ -1,0 +1,328 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "razzy-hero",
+      "settings": {
+        "show_intro": true,
+        "heading": "Wellness that <em>melts</em> on your tongue.",
+        "primary_label": "Shop all seven",
+        "primary_link": "#lineup",
+        "secondary_label": "How it works",
+        "secondary_link": "#how-it-works",
+        "products": [
+          "energy-strips",
+          "mushroom-focus-strips",
+          "cognitive-relax-strips",
+          "digestive-gut-health-strips",
+          "hair-skin-and-nails-strips",
+          "libido-support-strips",
+          "appetite-balance-weight-support-strips"
+        ],
+        "background": "#054FB8",
+        "text_color": "#CEFF65"
+      }
+    },
+    "tape": {
+      "type": "razzy-tape",
+      "settings": {
+        "text_a": "No water | No pills | Just strips | One a day",
+        "color_a": "#CEFF65",
+        "text_color_a": "#054FB8",
+        "text_b": "Peel | Place | Dissolve | Repeat tomorrow",
+        "color_b": "#FF7654",
+        "text_color_b": "#05060B"
+      }
+    },
+    "how": {
+      "type": "razzy-how",
+      "settings": {
+        "heading": "Peel. Place. <em>Gone.</em>",
+        "step_1_title": "Peel",
+        "step_1_text": "Pop the tin and open the sealed pack inside. All 30 strips stay fresh until you do.",
+        "step_2_title": "Place",
+        "step_2_text": "Lay the strip on your tongue. No water, no swallowing, no chalky pills.",
+        "step_3_title": "Dissolve",
+        "step_3_text": "It melts away on its own. That's it. One strip a day, wherever your day takes you.",
+        "image": "shopify://shop_images/razzy-placeholder-tongue.jpg",
+        "badge": "No water needed",
+        "background": "#470079",
+        "text_color": "#FAFAF5",
+        "accent": "#CEFF65"
+      }
+    },
+    "lineup": {
+      "type": "razzy-lineup",
+      "settings": {
+        "heading": "Seven strips. <em>Seven moods.</em>",
+        "subheading": "Every tin holds 30 strips. Pick the feeling you're after.",
+        "cue": "Keep scrolling",
+        "products": [
+          "energy-strips",
+          "mushroom-focus-strips",
+          "cognitive-relax-strips",
+          "digestive-gut-health-strips",
+          "hair-skin-and-nails-strips",
+          "libido-support-strips",
+          "appetite-balance-weight-support-strips"
+        ],
+        "intro_background": "#FAFAF5",
+        "intro_text": "#054FB8"
+      }
+    },
+    "why": {
+      "type": "razzy-stats",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": 30,
+            "suffix": "",
+            "label": "strips in every tin"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": 1,
+            "suffix": "",
+            "label": "strip a day. That's the routine."
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": 0,
+            "suffix": "",
+            "label": "glasses of water needed"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "number": 7,
+            "suffix": "",
+            "label": "formulas, one for every mood"
+          }
+        },
+        "compare_1": {
+          "type": "compare",
+          "settings": {
+            "old": "Swallow with a glass of water",
+            "new": "Melts on your tongue"
+          }
+        },
+        "compare_2": {
+          "type": "compare",
+          "settings": {
+            "old": "Rattling bottles in your bag",
+            "new": "A pocket-size tin"
+          }
+        },
+        "compare_3": {
+          "type": "compare",
+          "settings": {
+            "old": "Mix, shake, chug",
+            "new": "Peel, place, done"
+          }
+        },
+        "compare_4": {
+          "type": "compare",
+          "settings": {
+            "old": "Big, chalky pills",
+            "new": "A thin, flavored strip"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4",
+        "compare_1",
+        "compare_2",
+        "compare_3",
+        "compare_4"
+      ],
+      "settings": {
+        "heading": "Your daily stack, <em>minus the swallow.</em>",
+        "old_label": "Pills & powders",
+        "new_label": "Razzy strips",
+        "background": "#CEFF65",
+        "text_color": "#054FB8"
+      }
+    },
+    "moments": {
+      "type": "razzy-day",
+      "blocks": {
+        "moment_1": {
+          "type": "moment",
+          "settings": {
+            "time": "7:00 AM",
+            "title": "Out the door, <em>switched on.</em>",
+            "text": "One strip on your way out. Green tea caffeine and L-theanine, no coffee queue required.",
+            "product": "energy-strips",
+            "image": "shopify://shop_images/razzy-placeholder-energy.jpg"
+          }
+        },
+        "moment_2": {
+          "type": "moment",
+          "settings": {
+            "time": "10:30 AM",
+            "title": "Deep work, <em>no drift.</em>",
+            "text": "Lion's Mane and friends for the long stretch between meetings.",
+            "product": "mushroom-focus-strips",
+            "image": "shopify://shop_images/razzy-placeholder-focus.jpg"
+          }
+        },
+        "moment_3": {
+          "type": "moment",
+          "settings": {
+            "time": "1:00 PM",
+            "title": "Lunch, <em>handled.</em>",
+            "text": "Probiotics and digestive enzymes after a big bowl. Strip it and get on with your afternoon.",
+            "product": "digestive-gut-health-strips",
+            "image": "shopify://shop_images/razzy-placeholder-digestive.jpg"
+          }
+        },
+        "moment_4": {
+          "type": "moment",
+          "settings": {
+            "time": "5:30 PM",
+            "title": "Keep it <em>on track.</em>",
+            "text": "Saffron and chromium to back up the habits you're building.",
+            "product": "appetite-balance-weight-support-strips",
+            "image": "shopify://shop_images/razzy-placeholder-metabolism.jpg"
+          }
+        },
+        "moment_5": {
+          "type": "moment",
+          "settings": {
+            "time": "9:00 PM",
+            "title": "Lights low, <em>mind quiet.</em>",
+            "text": "L-theanine and GABA for winding down after a full day.",
+            "product": "cognitive-relax-strips",
+            "image": "shopify://shop_images/razzy-placeholder-chill.jpg"
+          }
+        },
+        "moment_6": {
+          "type": "moment",
+          "settings": {
+            "time": "11:00 PM",
+            "title": "After <em>hours.</em>",
+            "text": "Cordyceps and shilajit for when the night is still young.",
+            "product": "libido-support-strips",
+            "image": "shopify://shop_images/razzy-placeholder-libido.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "moment_1",
+        "moment_2",
+        "moment_3",
+        "moment_4",
+        "moment_5",
+        "moment_6"
+      ],
+      "settings": {
+        "heading": "A strip for <em>every moment.</em>",
+        "background": "#FAFAF5",
+        "text_color": "#05060B"
+      }
+    },
+    "mood": {
+      "type": "razzy-mood",
+      "blocks": {
+        "mood_1": {
+          "type": "mood",
+          "settings": {
+            "mood": "calm",
+            "product": "cognitive-relax-strips"
+          }
+        },
+        "mood_2": {
+          "type": "mood",
+          "settings": {
+            "mood": "sharp",
+            "product": "mushroom-focus-strips"
+          }
+        },
+        "mood_3": {
+          "type": "mood",
+          "settings": {
+            "mood": "energized",
+            "product": "energy-strips"
+          }
+        },
+        "mood_4": {
+          "type": "mood",
+          "settings": {
+            "mood": "glowing",
+            "product": "hair-skin-and-nails-strips"
+          }
+        },
+        "mood_5": {
+          "type": "mood",
+          "settings": {
+            "mood": "balanced",
+            "product": "digestive-gut-health-strips"
+          }
+        },
+        "mood_6": {
+          "type": "mood",
+          "settings": {
+            "mood": "on track",
+            "product": "appetite-balance-weight-support-strips"
+          }
+        },
+        "mood_7": {
+          "type": "mood",
+          "settings": {
+            "mood": "frisky",
+            "product": "libido-support-strips"
+          }
+        }
+      },
+      "block_order": [
+        "mood_1",
+        "mood_2",
+        "mood_3",
+        "mood_4",
+        "mood_5",
+        "mood_6",
+        "mood_7"
+      ],
+      "settings": {
+        "prompt": "Right now, I want to feel <em>…</em>"
+      }
+    },
+    "signoff": {
+      "type": "razzy-bigmark",
+      "settings": {
+        "heading": "Strip in. <em>Feel it.</em>",
+        "button_label": "Shop the strips",
+        "button_link": "/collections/all",
+        "background": "#054FB8",
+        "text_color": "#CEFF65"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "tape",
+    "how",
+    "lineup",
+    "why",
+    "moments",
+    "mood",
+    "signoff"
+  ]
+}

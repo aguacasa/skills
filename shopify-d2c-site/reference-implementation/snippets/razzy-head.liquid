@@ -1,0 +1,68 @@
+{% doc %}
+  Loads the Razzy brand layer: self-hosted fonts (mapped onto the theme's font variables),
+  the brand stylesheet and the motion script. Render inside <head> after the theme's
+  style variables so these overrides win.
+
+  @example
+  {% render 'razzy-head' %}
+{% enddoc %}
+
+<link rel="preload" href="{{ 'razzy-fraunces.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'razzy-bricolage.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+
+<style>
+  @font-face {
+    font-family: 'Razzy Display';
+    src: url('{{ 'razzy-fraunces.woff2' | asset_url }}') format('woff2');
+    font-weight: 500 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Razzy Display';
+    src: url('{{ 'razzy-fraunces-italic.woff2' | asset_url }}') format('woff2');
+    font-weight: 500 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Razzy Sans';
+    src: url('{{ 'razzy-bricolage.woff2' | asset_url }}') format('woff2');
+    font-weight: 300 800;
+    font-stretch: 75% 100%;
+    font-display: swap;
+  }
+
+  :root {
+    --font-body--family: 'Razzy Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-subheading--family: 'Razzy Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-accent--family: 'Razzy Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-heading--family: 'Razzy Display', Georgia, serif;
+    --font-heading--weight: 800;
+    --font-heading--style: normal;
+  }
+</style>
+
+{%- comment -%}
+  rz-motion hides scroll-revealed content until razzy.js animates it in; it is skipped for
+  reduced motion and removed again if the script has not booted within 4 seconds.
+  rz-intro-seen skips the wordmark intro after the first view in a session.
+{%- endcomment -%}
+<script>
+  (function () {
+    var root = document.documentElement;
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      root.classList.add('rz-motion');
+      setTimeout(function () {
+        if (!window.Razzy) root.classList.remove('rz-motion');
+      }, 4000);
+    }
+    try {
+      if (sessionStorage.getItem('rz-intro-seen') === '1') root.classList.add('rz-intro-seen');
+    } catch (error) {}
+    window.RazzyConfig = { threeUrl: {{ 'razzy-3d.js' | asset_url | json }} };
+  })();
+</script>
+
+{{ 'razzy.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'razzy.js' | asset_url }}" type="module"></script>

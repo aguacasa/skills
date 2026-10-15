@@ -1,0 +1,244 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product-information",
+      "blocks": {
+        "media-gallery": {
+          "type": "_product-media-gallery",
+          "static": true,
+          "settings": {
+            "media_presentation": "carousel",
+            "media_columns": "two",
+            "image_gap": 4,
+            "large_first_image": false,
+            "icons_style": "chevron",
+            "slideshow_controls_style": "dots",
+            "slideshow_mobile_controls_style": "dots",
+            "thumbnail_position": "right",
+            "thumbnail_width": 44,
+            "thumbnail_radius": 0,
+            "aspect_ratio": "1",
+            "constrain_to_viewport": false,
+            "media_fit": "contain",
+            "media_radius": 24,
+            "extend_media": false,
+            "zoom": true,
+            "video_loop": false,
+            "hide_variants": true,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "product-details": {
+          "type": "_product-details",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "details_position": "center",
+            "gap": 22,
+            "sticky_details_desktop": true,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 24,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "rz_intro": {
+              "type": "razzy-product-intro",
+              "settings": {
+                "back_label": "All strips",
+                "show_summary": true
+              }
+            },
+            "rz_facts": {
+              "type": "razzy-product-facts",
+              "settings": {}
+            },
+            "price_tVjtKg": {
+              "type": "price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "padding-block-start": 8,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "variant_picker_R3rGDr": {
+              "type": "variant-picker",
+              "settings": {
+                "variant_style": "dropdowns",
+                "show_swatches": false,
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "buy_buttons_eYQEYi": {
+              "type": "buy-buttons",
+              "settings": {
+                "stacking": true,
+                "show_pickup_availability": false,
+                "gift_card_form": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "static": true,
+                  "settings": {
+                    "input_style": "default"
+                  },
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
+                  "settings": {
+                    "style_class": "button"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
+            },
+            "rz_badges": {
+              "type": "razzy-product-badges",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "rz_intro",
+            "rz_facts",
+            "price_tVjtKg",
+            "variant_picker_R3rGDr",
+            "buy_buttons_eYQEYi",
+            "rz_badges"
+          ]
+        },
+        "razzy-stage": {
+          "type": "_razzy-product-stage",
+          "static": true,
+          "settings": {}
+        }
+      },
+      "settings": {
+        "content_width": "content-center-aligned",
+        "desktop_media_position": "left",
+        "equal_columns": true,
+        "limit_details_width": false,
+        "gap": 40,
+        "enable_sticky_add_to_cart": true,
+        "background_color": "",
+        "padding-block-start": 56,
+        "padding-block-end": 72,
+        "razzy_stage": true
+      }
+    },
+    "tape": {
+      "type": "razzy-tape",
+      "settings": {}
+    },
+    "ingredients": {
+      "type": "razzy-ingredients",
+      "settings": {}
+    },
+    "details": {
+      "type": "razzy-product-details",
+      "blocks": {
+        "faq_1": {
+          "type": "question",
+          "settings": {
+            "question": "How long does one tin last?",
+            "answer": "<p>A month. Each tin holds 30 strips and the routine is one strip a day.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "question",
+          "settings": {
+            "question": "Do I need water?",
+            "answer": "<p>No. Place a strip on your tongue and let it dissolve. That's it.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I take more than one a day?",
+            "answer": "<p>No. Take one strip a day and don't exceed the recommended dose. If you're pregnant, nursing, under 18 or have a medical condition, check with your doctor first.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "question",
+          "settings": {
+            "question": "How should I store my strips?",
+            "answer": "<p>Somewhere cool and dry, with the tin closed and out of reach of children.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {}
+    },
+    "more": {
+      "type": "razzy-more",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "tape",
+    "ingredients",
+    "details",
+    "more"
+  ]
+}

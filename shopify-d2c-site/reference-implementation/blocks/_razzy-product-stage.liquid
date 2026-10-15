@@ -1,0 +1,261 @@
+{% doc %}
+  Razzy product media stage, used in place of the media gallery when the product section's
+  "Razzy 3D stage" setting is on. Shows the product's tin in 3D (drag to spin) with thumbnails that swap to the product photos. Without
+  WebGL, or with reduced motion, it shows the tin cutout from the razzy.cutout metafield.
+{% enddoc %}
+{%- liquid
+  assign rz_product = closest.product
+  assign rz_cutout = rz_product.metafields.razzy.cutout.value
+  assign rz_photo_count = 0
+-%}
+{%- capture rz_color -%}{{ rz_product.metafields.razzy.color.value | default: '#054FB8' }}{%- endcapture -%}
+{%- capture rz_label -%}
+  {%- comment -%} Lid label cropped from the Supliful 2048px front mockup. {%- endcomment -%}
+  {%- if rz_product.featured_image -%}{{ rz_product.featured_image | image_url: width: 1024 }}&crop=region&crop_left=392&crop_top=512&crop_width=1264&crop_height=1252{%- endif -%}
+{%- endcapture -%}
+
+<div class="rz-stage" data-rz-stage {{ block.shopify_attributes }}>
+  <div class="rz-stage__views">
+    <div class="rz-stage__view rz-stage__view--tin" data-rz-view="tin">
+      <div class="rz-stage__glow" aria-hidden="true"></div>
+      {%- if rz_cutout -%}
+        {{
+          rz_cutout
+          | image_url: width: 1000
+          | image_tag:
+            class: 'rz-stage__fallback',
+            widths: '400, 700, 1000',
+            sizes: '(min-width: 750px) 44vw, 88vw',
+            loading: 'eager',
+            alt: rz_product.title
+        }}
+      {%- endif -%}
+      <div
+        class="rz-stage__canvas"
+        data-rz-stage-canvas
+        aria-hidden="true"
+      ></div>
+    </div>
+
+    {%- for media in rz_product.media -%}
+      {%- if media.media_type == 'image' -%}
+        {%- assign rz_photo_count = rz_photo_count | plus: 1 -%}
+        <div class="rz-stage__view rz-stage__view--photo" data-rz-view="photo-{{ forloop.index }}" hidden>
+          {{
+            media
+            | image_url: width: 1400
+            | image_tag:
+              widths: '500, 800, 1100, 1400',
+              sizes: '(min-width: 750px) 44vw, 88vw',
+              loading: 'lazy',
+              alt: media.alt
+          }}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- if rz_photo_count > 0 -%}
+    <div class="rz-stage__thumbs" role="group" aria-label="{{ block.settings.thumbs_label | escape }}">
+      <button type="button" class="rz-stage__thumb" data-rz-thumb="tin" aria-pressed="true" aria-label="{{ block.settings.tin_thumb_label | escape }}">
+        {%- if rz_cutout -%}
+          {{ rz_cutout | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+        {%- endif -%}
+        <span class="rz-stage__thumb-badge" aria-hidden="true">3D</span>
+      </button>
+      {%- for media in rz_product.media -%}
+        {%- if media.media_type == 'image' -%}
+          <button
+            type="button"
+            class="rz-stage__thumb rz-stage__thumb--photo"
+            data-rz-thumb="photo-{{ forloop.index }}"
+            aria-pressed="false"
+            aria-label="{{ block.settings.photo_thumb_label | escape }} {{ forloop.index }}"
+          >
+            {{ media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+          </button>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  <script type="application/json" data-rz-stage-data>
+    { "color": {{ rz_color | json }}, "label": {{ rz_label | strip | json }} }
+  </script>
+</div>
+
+{% stylesheet %}
+  .rz-stage {
+    display: grid;
+    gap: 16px;
+  }
+
+  .rz-stage__views {
+    position: relative;
+    display: grid;
+  }
+
+  .rz-stage__view {
+    grid-area: 1 / 1;
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    max-height: min(78svh, 820px);
+    width: 100%;
+  }
+
+  .rz-stage__view[hidden] {
+    display: none;
+  }
+
+  .rz-stage__glow {
+    position: absolute;
+    inset: 6%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(255 255 255 / 0.28), rgb(255 255 255 / 0) 65%);
+    pointer-events: none;
+  }
+
+  .rz-stage__fallback {
+    position: absolute;
+    width: 62%;
+    height: auto;
+    filter: drop-shadow(0 34px 44px rgb(0 0 0 / 0.38));
+    transition: opacity 0.8s var(--rz-ease);
+  }
+
+  .rz-stage.is-3d-ready .rz-stage__fallback {
+    opacity: 0;
+  }
+
+  .rz-stage__canvas {
+    position: absolute;
+    inset: 0;
+    touch-action: pan-y;
+    cursor: grab;
+    opacity: 0;
+    transition: opacity 1s var(--rz-ease);
+  }
+
+  .rz-stage__canvas:active {
+    cursor: grabbing;
+  }
+
+  .rz-stage.is-3d-ready .rz-stage__canvas {
+    opacity: 1;
+  }
+
+  .rz-stage__canvas canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+
+  .rz-stage__view--photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: var(--rz-radius);
+    background: #f2f2f0;
+    box-shadow: 0 30px 60px rgb(0 0 0 / 0.22);
+  }
+
+  .rz-stage__thumbs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 4px;
+    scrollbar-width: none;
+  }
+
+  .rz-stage__thumbs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rz-stage__thumb {
+    position: relative;
+    flex: none;
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 16px;
+    background: rgb(255 255 255 / 0.18);
+    box-shadow: inset 0 0 0 2px transparent;
+    cursor: pointer;
+    transition:
+      transform 0.4s var(--rz-spring),
+      box-shadow 0.3s;
+  }
+
+  .rz-stage__thumb--photo {
+    background: #f2f2f0;
+  }
+
+  .rz-stage__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .rz-stage__thumb:hover {
+    transform: translateY(-3px);
+  }
+
+  .rz-stage__thumb[aria-pressed='true'] {
+    box-shadow: inset 0 0 0 3px var(--rz-accent, var(--rz-lime));
+  }
+
+  .rz-stage__thumb-badge {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: var(--rz-ink);
+    color: var(--rz-lime);
+    font-family: var(--rz-sans);
+    font-weight: 800;
+    font-size: 10px;
+  }
+
+  .rz-stage.is-static .rz-stage__fallback {
+    animation: rz-float 6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rz-stage.is-static .rz-stage__fallback {
+      animation: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Razzy 3D stage",
+  "settings": [
+    {
+      "type": "text",
+      "id": "thumbs_label",
+      "label": "Thumbnails label (screen readers)",
+      "default": "Product views"
+    },
+    {
+      "type": "text",
+      "id": "tin_thumb_label",
+      "label": "3D thumbnail label (screen readers)",
+      "default": "Show the 3D tin"
+    },
+    {
+      "type": "text",
+      "id": "photo_thumb_label",
+      "label": "Photo thumbnail label (screen readers)",
+      "default": "Show photo"
+    }
+  ]
+}
+{% endschema %}

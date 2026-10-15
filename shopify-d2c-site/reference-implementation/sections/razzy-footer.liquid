@@ -1,0 +1,312 @@
+{% comment %}
+  Section contract.
+  Site footer: a short brand line, site map columns (a menu of your choice and the store's
+  legal policies, which appear automatically once they exist in Settings →
+  Policies), payment icons, copyright and the FDA disclaimer, with the Razzy wordmark across
+  the bottom.
+  @example
+  <!-- Footer group section; pick the "Explore" menu in settings -->
+{% endcomment %}
+{%- liquid
+  assign rz_menu = section.settings.menu
+-%}
+
+<footer class="rz-footer" style="--rz-footer-bg: {{ section.settings.background }}; --rz-footer-fg: {{ section.settings.text_color }};">
+  <div class="rz-footer__top">
+    <div class="rz-footer__intro">
+      {%- if section.settings.tagline != blank -%}
+        <p class="rz-footer__tagline">{{ section.settings.tagline }}</p>
+      {%- endif -%}
+      {%- if section.settings.email != blank -%}
+        <a class="rz-footer__email" href="mailto:{{ section.settings.email }}">{{ section.settings.email | escape }}</a>
+      {%- endif -%}
+    </div>
+
+    <nav class="rz-footer__nav" aria-label="{{ section.settings.nav_label | escape }}">
+      {%- if rz_menu.links.size > 0 -%}
+        <div class="rz-footer__col">
+          <h2 class="rz-footer__heading">{{ section.settings.menu_heading | escape }}</h2>
+          <ul>
+            {%- for link in rz_menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      <div class="rz-footer__col">
+        <h2 class="rz-footer__heading">{{ section.settings.legal_heading | escape }}</h2>
+        <ul>
+          {%- for policy in shop.policies -%}
+            <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+          {%- endfor -%}
+          {%- if section.settings.privacy_choices_page != blank -%}
+            <li><a href="{{ section.settings.privacy_choices_page.url }}">{{ section.settings.privacy_choices_page.title | escape }}</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="rz-footer__bottom">
+    <p class="rz-footer__disclaimer">{{ section.settings.disclaimer | escape }}</p>
+    <div class="rz-footer__meta">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</p>
+      {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+        <ul class="rz-footer__payments" aria-label="{{ section.settings.payments_label | escape }}">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag: class: 'rz-footer__payment' }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <a class="rz-footer__mark" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+    {{ 'razzy-wordmark.svg' | inline_asset_content }}
+  </a>
+</footer>
+
+{% stylesheet %}
+  .rz-footer {
+    display: grid;
+    gap: clamp(40px, 5vw, 72px);
+    padding: clamp(64px, 8vw, 110px) var(--rz-gutter) 0;
+    overflow: clip;
+    background: var(--rz-footer-bg);
+    color: var(--rz-footer-fg);
+    font-family: var(--rz-sans);
+  }
+
+  .rz-footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .rz-footer__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: 40px;
+  }
+
+  .rz-footer__intro {
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    gap: 18px;
+  }
+
+  .rz-footer__tagline {
+    max-width: 18ch;
+    margin: 0;
+    font-family: var(--rz-display);
+    font-weight: 900;
+    font-size: clamp(30px, 3vw, 46px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+
+  .rz-footer__tagline em {
+    font-style: italic;
+    color: #fff;
+  }
+
+  .rz-footer__email {
+    font-weight: 700;
+    font-size: 16px;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .rz-footer__nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .rz-footer__heading {
+    margin: 0 0 16px;
+    font-family: var(--rz-sans);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: inherit;
+    opacity: 0.7;
+  }
+
+  .rz-footer__col ul {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rz-footer__col a {
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
+    transition: background-size 0.4s var(--rz-ease);
+  }
+
+  .rz-footer__col a:hover,
+  .rz-footer__col a:focus-visible {
+    background-size: 100% 2px;
+  }
+
+  .rz-footer__bottom {
+    display: grid;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1.5px solid color-mix(in srgb, currentColor 35%, transparent);
+  }
+
+  .rz-footer__disclaimer {
+    max-width: 90ch;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    opacity: 0.75;
+  }
+
+  .rz-footer__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    font-size: 13px;
+  }
+
+  .rz-footer__meta p {
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .rz-footer__payments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rz-footer__payment {
+    display: block;
+    width: 38px;
+    height: 24px;
+  }
+
+  .rz-footer__mark {
+    display: block;
+    padding-bottom: clamp(24px, 3vw, 44px);
+  }
+
+  .rz-footer__mark .rz-wordmark {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 899px) {
+    .rz-footer__top {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 599px) {
+    .rz-footer__nav {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Razzy footer",
+  "enabled_on": {
+    "groups": [
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Wellness that <em>melts</em> on your tongue."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Contact email",
+      "default": "info@getrazzy.com"
+    },
+    {
+      "type": "text",
+      "id": "nav_label",
+      "label": "Footer navigation label (screen readers)",
+      "default": "Footer"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Second column menu",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "menu_heading",
+      "label": "Second column heading",
+      "default": "Explore"
+    },
+    {
+      "type": "text",
+      "id": "legal_heading",
+      "label": "Legal column heading",
+      "default": "Legal"
+    },
+    {
+      "type": "page",
+      "id": "privacy_choices_page",
+      "label": "Privacy choices page"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "payments_label",
+      "label": "Payment icons label (screen readers)",
+      "default": "Payment methods we accept"
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#054FB8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#CEFF65"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Razzy footer"
+    }
+  ]
+}
+{% endschema %}

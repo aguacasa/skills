@@ -1,0 +1,124 @@
+{% comment %}
+  Section contract.
+  Sign-off before the footer: a closing line and button above a full-width Razzy wordmark
+  whose letters bounce in on scroll and jump on hover.
+  @example
+  <!-- Last section on the homepage; match the background to the footer -->
+{% endcomment %}
+
+<section
+  class="rz-bigmark"
+  data-rz-bigmark-section
+  style="--rz-bigmark-bg: {{ section.settings.background }}; --rz-bigmark-fg: {{ section.settings.text_color }};"
+>
+  <div class="rz-bigmark__top">
+    <h2 class="rz-h2" data-rz-split>{{ section.settings.heading }}</h2>
+    {%- if section.settings.button_label != blank -%}
+      <a class="rz-btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" data-rz-magnetic data-rz-reveal>
+        {{ section.settings.button_label | escape }}
+        <svg class="rz-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    {%- endif -%}
+  </div>
+  <div class="rz-bigmark__mark" data-rz-bigmark>
+    {{ 'razzy-wordmark.svg' | inline_asset_content }}
+  </div>
+</section>
+
+{% stylesheet %}
+  .rz-bigmark {
+    position: relative;
+    display: grid;
+    gap: clamp(40px, 6vw, 90px);
+    padding: clamp(100px, 12vw, 180px) var(--rz-gutter) 0;
+    overflow: clip;
+    background: var(--rz-bigmark-bg);
+    color: var(--rz-bigmark-fg);
+  }
+
+  .rz-bigmark__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .rz-bigmark__top .rz-h2 {
+    max-width: 12ch;
+  }
+
+  .rz-bigmark__top .rz-btn {
+    --rz-btn-bg: var(--rz-bigmark-fg);
+    --rz-btn-fg: var(--rz-bigmark-bg);
+  }
+
+  .rz-bigmark__mark {
+    padding-bottom: clamp(24px, 3vw, 48px);
+  }
+
+  .rz-bigmark__mark .rz-wordmark {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Hover uses the individual translate/rotate properties so it composes with the
+     transform GSAP animates on the same letters. */
+  .rz-bigmark .rz-letter {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    transition:
+      translate 0.6s var(--rz-spring),
+      rotate 0.6s var(--rz-spring);
+  }
+
+  .rz-bigmark .rz-letter:hover {
+    translate: 0 -9%;
+    rotate: -5deg;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Razzy sign-off",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Strip in. <em>Feel it.</em>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop the strips"
+    },
+    {
+      "type": "text",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#054FB8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#CEFF65"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Razzy sign-off"
+    }
+  ]
+}
+{% endschema %}
