@@ -4,5 +4,6 @@
   "author": {
     "name": "aguacasa"
   },
-  "repository": "https://github.com/aguacasa/skills"
+  "repository": "https://github.com/aguacasa/skills",
+  "license": "MIT"
 }

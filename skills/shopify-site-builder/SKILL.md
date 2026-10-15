@@ -1,5 +1,5 @@
 ---
-name: shopify-d2c-site
+name: shopify-site-builder
 description: Builds a premium, animated D2C storefront on a Shopify theme. It sets up the brand system (palette, fonts, logo files), product data and imagery (metafields, cutouts), then builds a 3D hero, scroll-driven product-colour sections, product pages that keep the theme's checkout, footer and legal pages, and checks every step in headless Chrome before a safe deploy. Use when the user wants to design, build, redesign or launch a Shopify store or theme, make a store look high-end, add 3D or scroll animation to Shopify, or set up a supplement or wellness D2C brand site.
 ---
 

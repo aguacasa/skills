@@ -4,7 +4,7 @@ Custom agent skills by [aguacasa](https://github.com/aguacasa). Each one is a fo
 
 | Skill | What it does |
 |---|---|
-| [shopify-d2c-site](skills/shopify-d2c-site/SKILL.md) | Builds a premium, animated D2C storefront on a Shopify theme: brand system, product data and imagery, a 3D hero, scroll-driven sections, product pages that keep the theme's checkout, legal pages, visual QA and safe deploys. |
+| [shopify-site-builder](skills/shopify-site-builder/SKILL.md) | Builds a premium, animated D2C storefront on a Shopify theme: brand system, product data and imagery, a 3D hero, scroll-driven sections, product pages that keep the theme's checkout, legal pages, visual QA and safe deploys. |
 
 ## Install
 
@@ -14,7 +14,7 @@ Custom agent skills by [aguacasa](https://github.com/aguacasa). Each one is a fo
 npx skills add aguacasa/skills
 ```
 
-The [skills CLI](https://github.com/vercel-labs/skills) finds every skill in this repo and installs it for whichever agents you pick. Useful flags: `-g` installs globally instead of for the current project, `-s shopify-d2c-site` installs one skill, `-a claude-code` targets one agent, and `-l` lists the skills without installing.
+The [skills CLI](https://github.com/vercel-labs/skills) finds every skill in this repo and installs it for whichever agents you pick. Useful flags: `-g` installs globally instead of for the current project, `-s shopify-site-builder` installs one skill, `-a claude-code` targets one agent, and `-l` lists the skills without installing.
 
 ### Claude Code plugin
 
@@ -25,7 +25,7 @@ Inside Claude Code:
 /plugin install aguacasa-skills@aguacasa
 ```
 
-This installs every skill in the repo as one plugin. Each skill becomes a command named after the plugin, such as `/aguacasa-skills:shopify-d2c-site`. Claude also loads a skill on its own when your request matches the skill's description. To pull in new skills later, run `/plugin marketplace update aguacasa`.
+This installs every skill in the repo as one plugin. Each skill becomes a command named after the plugin, such as `/aguacasa-skills:shopify-site-builder`. Claude also loads a skill on its own when your request matches the skill's description. To pull in new skills later, run `/plugin marketplace update aguacasa`.
 
 ### Manual copy
 
@@ -33,7 +33,7 @@ Copy a skill folder into your agent's skills directory:
 
 ```bash
 git clone https://github.com/aguacasa/skills.git
-cp -R skills/skills/shopify-d2c-site ~/.claude/skills/
+cp -R skills/skills/shopify-site-builder ~/.claude/skills/
 ```
 
 | Agent | Personal folder | Project folder |
@@ -44,20 +44,20 @@ cp -R skills/skills/shopify-d2c-site ~/.claude/skills/
 | GitHub Copilot | `~/.copilot/skills/` | `.github/skills/` |
 | Gemini CLI | `~/.gemini/skills/` | `.gemini/skills/` |
 
-In Claude Code, a skill in `~/.claude/skills/<name>/` runs as `/<name>`, for example `/shopify-d2c-site`.
+In Claude Code, a skill in `~/.claude/skills/<name>/` runs as `/<name>`, for example `/shopify-site-builder`.
 
 ### Claude.ai
 
 1. Zip the skill folder, keeping the folder at the top level of the zip:
 
    ```bash
-   cd skills && zip -r shopify-d2c-site.zip shopify-d2c-site -x '*/node_modules/*'
+   cd skills && zip -r shopify-site-builder.zip shopify-site-builder -x '*/node_modules/*'
    ```
 
 2. Turn on **Code execution and file creation** in Settings → Capabilities.
 3. Upload the zip under **Skills**.
 
-The shopify-d2c-site skill needs a local shell, the Shopify CLI and Chrome. On Claude.ai it can plan and write code, but it can't deploy.
+The shopify-site-builder skill needs a local shell, the Shopify CLI and Chrome. On Claude.ai it can plan and write code, but it can't deploy.
 
 ## Adding a skill
 
@@ -69,9 +69,13 @@ The shopify-d2c-site skill needs a local shell, the Shopify CLI and Chrome. On C
 
 You don't need any other manifest. The skills CLI and the Claude Code plugin both pick up every folder under `skills/`.
 
-## Requirements for shopify-d2c-site
+## Requirements for shopify-site-builder
 
 - An agent with a shell, and the Shopify connector (MCP) for store data
 - Node 22+, the Shopify CLI, the GitHub CLI and Google Chrome
 - macOS for the product cutout script, which uses Apple Vision. Everything else is cross-platform.
-- Run `npm install` in `skills/shopify-d2c-site/scripts/` once before using the QA scripts.
+- Run `npm install` in `skills/shopify-site-builder/scripts/` once before using the QA scripts.
+
+## License
+
+[MIT](LICENSE)

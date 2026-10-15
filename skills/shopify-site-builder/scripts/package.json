@@ -1,0 +1,10 @@
+{
+  "name": "shopify-site-builder-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Helper scripts for the shopify-site-builder skill. Run `npm install` here once.",
+  "dependencies": {
+    "puppeteer-core": "^24.0.0",
+    "sharp": "^0.34.0"
+  }
+}
